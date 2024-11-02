@@ -56,6 +56,19 @@ if(!empty($parameters)){
             </div>
           </div>
         <!-- End access -->
+        <!-- masters -->
+          <div class="nav-item">
+            <a class="nav-link dropdown-toggle active <?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'':'collapsed')?>" href="#navbarVerticalMenuAccess2" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuAccess2" aria-expanded="<?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'true':'false')?>" aria-controls="navbarVerticalMenuAccess2">
+              <i class="fa fa-database nav-icon"></i>
+              <span class="nav-link-title">Masters</span>
+            </a>
+            <div id="navbarVerticalMenuAccess2" class="nav-collapse collapse <?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'show':'')?>" data-bs-parent="#navbarVerticalMenu">
+              <a class="nav-link <?=(($pageSegment == 'pol')?'active':'')?>" href="<?=url('admin/pol/list')?>">POL</a>
+              <a class="nav-link <?=(($pageSegment == 'pod')?'active':'')?>" href="<?=url('admin/pod/list')?>">POD</a>
+              <a class="nav-link <?=(($pageSegment == 'process-flow')?'active':'')?>" href="<?=url('admin/process-flow/list')?>">Process Flow</a>
+            </div>
+          </div>
+        <!-- End masters -->
         <!-- customer -->
           <div class="nav-item">
             <a class="nav-link <?=(($pageSegment == 'customer')?'active':'')?>" href="<?=url('admin/customer/list')?>" data-placement="left">

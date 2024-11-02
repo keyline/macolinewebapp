@@ -139,6 +139,27 @@ use Illuminate\Support\Facades\Route;
                 Route::get('page/delete/{id}', 'PageController@delete');
                 Route::get('page/change-status/{id}', 'PageController@change_status');
             /* page */
+            /* pol */
+                Route::get('pol/list', 'PolController@list');
+                Route::match(['get', 'post'], 'pol/add', 'PolController@add');
+                Route::match(['get', 'post'], 'pol/edit/{id}', 'PolController@edit');
+                Route::get('pol/delete/{id}', 'PolController@delete');
+                Route::get('pol/change-status/{id}', 'PolController@change_status');
+            /* pol */
+            /* pod */
+                Route::get('pod/list', 'PodController@list');
+                Route::match(['get', 'post'], 'pod/add', 'PodController@add');
+                Route::match(['get', 'post'], 'pod/edit/{id}', 'PodController@edit');
+                Route::get('pod/delete/{id}', 'PodController@delete');
+                Route::get('pod/change-status/{id}', 'PodController@change_status');
+            /* pod */
+            /* process flow */
+                Route::get('process-flow/list', 'ProcessFlowController@list');
+                Route::match(['get', 'post'], 'process-flow/add', 'ProcessFlowController@add');
+                Route::match(['get', 'post'], 'process-flow/edit/{id}', 'ProcessFlowController@edit');
+                Route::get('process-flow/delete/{id}', 'ProcessFlowController@delete');
+                Route::get('process-flow/change-status/{id}', 'ProcessFlowController@change_status');
+            /* process flow */
         });
     });
 /* Admin Panel */
