@@ -40,7 +40,7 @@
               </div>
               <!-- Form -->
               <div class="mb-4">
-                <label class="form-label" for="signinSrEmail">Your email</label>
+                <label class="form-label w-100" for="signinSrEmail" tabindex="0" style="text-align:left;">Your email</label>
                 <input type="email" class="form-control form-control-lg" name="email" id="signinSrEmail" tabindex="1" placeholder="email@address.com" aria-label="email@address.com" required>
                 <span class="invalid-feedback">Please enter a valid email address.</span>
               </div>

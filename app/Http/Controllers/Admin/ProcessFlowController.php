@@ -45,12 +45,13 @@ class ProcessFlowController extends Controller
                 ];
                 if($this->validate($request, $rules)){
                     $fields = [
-                        'name'                      => $postData['name'],
-                        'shipment_type'             => $postData['shipment_type'],
-                        'type'                      => (array_key_exists("type",$postData)?$postData['type']:''),
-                        'form_element_type'         => $postData['form_element_type'],
-                        'options'                   => $postData['options'],
-                        'is_notification'           => $postData['is_notification'],
+                        'name'                                      => $postData['name'],
+                        'shipment_type'                             => $postData['shipment_type'],
+                        'type'                                      => (array_key_exists("type",$postData)?$postData['type']:''),
+                        'form_element_type'                         => $postData['form_element_type'],
+                        'options'                                   => $postData['options'],
+                        'is_notification'                           => $postData['is_notification'],
+                        'notification_after_booking_date'           => $postData['notification_after_booking_date'],
                     ];
                     ProcessFlow::insert($fields);
                     return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Inserted Successfully !!!');
@@ -82,12 +83,13 @@ class ProcessFlowController extends Controller
                 ];
                 if($this->validate($request, $rules)){
                     $fields = [
-                        'name'                      => $postData['name'],
-                        'shipment_type'             => $postData['shipment_type'],
-                        'type'                      => (array_key_exists("type",$postData)?$postData['type']:''),
-                        'form_element_type'         => $postData['form_element_type'],
-                        'options'                   => $postData['options'],
-                        'is_notification'           => $postData['is_notification'],
+                        'name'                                      => $postData['name'],
+                        'shipment_type'                             => $postData['shipment_type'],
+                        'type'                                      => (array_key_exists("type",$postData)?$postData['type']:''),
+                        'form_element_type'                         => $postData['form_element_type'],
+                        'options'                                   => $postData['options'],
+                        'is_notification'                           => $postData['is_notification'],
+                        'notification_after_booking_date'           => $postData['notification_after_booking_date'],
                     ];
                     // Helper::pr($fields);
                     ProcessFlow::where($this->data['primary_key'], '=', $id)->update($fields);

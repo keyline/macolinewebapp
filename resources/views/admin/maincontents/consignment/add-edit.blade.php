@@ -99,6 +99,24 @@ $controllerRoute                = $module['controller_route'];
                 <input type="date" name="booking_date" class="form-control" id="booking_date" value="<?=$booking_date?>" required>
               </div>
             </div>
+
+            <div class="row mb-3" id="process-flow-dates" style="display:none;">
+              <div class="col-md-12">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Options</th>
+                      <th>Date Number</th>
+                    </tr>
+                  </thead>
+                  <tbody id="process-flow-html">
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
             <div class="text-center">
               <button type="submit" class="btn btn-primary"><?=(($row)?'Save':'Add')?></button>
             </div>
@@ -112,6 +130,7 @@ $controllerRoute                = $module['controller_route'];
 <script type="text/javascript">
   $(function(){
     const selectedValue = '<?=$shipment_type?>';
+    const selectedValue2 = '<?=$type?>';
     if (selectedValue === "Export") {
       $('#type-row').show();
       $('input[name="type"]').attr('required', true);
@@ -119,6 +138,28 @@ $controllerRoute                = $module['controller_route'];
       $('#type-row').hide();
       $('input[name="type"]').removeAttr('required');
     }
+
+    var base_url        = '<?=url('/')?>';
+    $.ajax({
+      type: 'POST',
+      url: base_url + "/admin/consignment/get-process-flow", // Replace with your server endpoint
+      data: {"_token": "{{ csrf_token() }}", shipment_type:selectedValue, selectedValue2:selectedValue2},
+      success: function(res) {
+        // console.log(res.status);
+          // res = $.parseJSON(res);
+          if(res.status){
+            $('#process-flow-dates').show();
+            $('#process-flow-html').html(res.data.processDateHTML);
+          } else {
+            $('#process-flow-dates').hide();
+            $('#process-flow-html').html('');
+          }
+      },
+      error: function(xhr, status, error) {
+        console.error('Error:', error); // Handle errors
+      }
+    });
+
     $('input[name="shipment_type"]').on('change', function() {
       const selectedValue = $('input[name="shipment_type"]:checked').val();
       if (selectedValue === "Export") {
@@ -128,6 +169,52 @@ $controllerRoute                = $module['controller_route'];
         $('#type-row').hide();
         $('input[name="type"]').removeAttr('required');
       }
+      if(selectedValue == 'Import'){
+        var base_url        = '<?=url('/')?>';
+        $.ajax({
+          type: 'POST',
+          url: base_url + "/admin/consignment/get-process-flow", // Replace with your server endpoint
+          data: {"_token": "{{ csrf_token() }}", shipment_type:selectedValue},
+          success: function(res) {
+            // console.log(res.status);
+              // res = $.parseJSON(res);
+              if(res.status){
+                $('#process-flow-dates').show();
+                $('#process-flow-html').html(res.data.processDateHTML);
+              } else {
+                $('#process-flow-dates').hide();
+                $('#process-flow-html').html('');
+              }
+          },
+          error: function(xhr, status, error) {
+            console.error('Error:', error); // Handle errors
+          }
+        });
+      }
+    });
+    $('input[name="type"]').on('change', function() {
+      var base_url        = '<?=url('/')?>';
+      const selectedValue = $('input[name="shipment_type"]:checked').val();
+      const selectedValue2 = $('input[name="type"]:checked').val();
+      $.ajax({
+        type: 'POST',
+        url: base_url + "/admin/consignment/get-process-flow", // Replace with your server endpoint
+        data: {"_token": "{{ csrf_token() }}", shipment_type:selectedValue, selectedValue2:selectedValue2},
+        success: function(res) {
+          // console.log(res.status);
+            // res = $.parseJSON(res);
+            if(res.status){
+              $('#process-flow-dates').show();
+              $('#process-flow-html').html(res.data.processDateHTML);
+            } else {
+              $('#process-flow-dates').hide();
+              $('#process-flow-html').html('');
+            }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error:', error); // Handle errors
+        }
+      });
     });
   })
 </script>

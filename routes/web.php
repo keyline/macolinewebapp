@@ -125,13 +125,6 @@ use Illuminate\Support\Facades\Route;
                 Route::get('customer/delete/{id}', 'CustomerController@delete');
                 Route::get('customer/change-status/{id}', 'CustomerController@change_status');
             /* customer */
-            /* customer */
-                Route::get('consignment/list', 'ConsignmentController@list');
-                Route::match(['get', 'post'], 'consignment/add', 'ConsignmentController@add');
-                Route::match(['get', 'post'], 'consignment/edit/{id}', 'ConsignmentController@edit');
-                Route::get('consignment/delete/{id}', 'ConsignmentController@delete');
-                Route::get('consignment/change-status/{id}', 'ConsignmentController@change_status');
-            /* consignment */
             /* page */
                 Route::get('page/list', 'PageController@list');
                 Route::match(['get', 'post'], 'page/add', 'PageController@add');
@@ -160,6 +153,14 @@ use Illuminate\Support\Facades\Route;
                 Route::get('process-flow/delete/{id}', 'ProcessFlowController@delete');
                 Route::get('process-flow/change-status/{id}', 'ProcessFlowController@change_status');
             /* process flow */
+            /* consignment */
+                Route::get('consignment/list', 'ConsignmentController@list');
+                Route::match(['get', 'post'], 'consignment/add', 'ConsignmentController@add');
+                Route::match(['get', 'post'], 'consignment/edit/{id}', 'ConsignmentController@edit');
+                Route::get('consignment/delete/{id}', 'ConsignmentController@delete');
+                Route::get('consignment/change-status/{id}', 'ConsignmentController@change_status');
+                Route::post('consignment/get-process-flow', 'ConsignmentController@getProcessFlow');
+            /* consignment */
         });
     });
 /* Admin Panel */

@@ -49,19 +49,21 @@ $controllerRoute                = $module['controller_route'];
     </div>
     <?php
     if($row){
-      $shipment_type        = $row->shipment_type;
-      $type                 = $row->type;
-      $name                 = $row->name;
-      $form_element_type    = $row->form_element_type;
-      $is_notification      = $row->is_notification;
-      $options              = $row->options;
+      $shipment_type                        = $row->shipment_type;
+      $type                                 = $row->type;
+      $name                                 = $row->name;
+      $form_element_type                    = $row->form_element_type;
+      $is_notification                      = $row->is_notification;
+      $notification_after_booking_date      = $row->notification_after_booking_date;
+      $options                              = $row->options;
     } else {
-      $shipment_type        = '';
-      $type                 = '';
-      $name                 = '';
-      $form_element_type    = '';
-      $is_notification      = '';
-      $options              = '';
+      $shipment_type                        = '';
+      $type                                 = '';
+      $name                                 = '';
+      $form_element_type                    = '';
+      $is_notification                      = '';
+      $notification_after_booking_date      = '';
+      $options                              = '';
     }
     ?>
     <div class="col-xl-12">
@@ -136,6 +138,12 @@ $controllerRoute                = $module['controller_route'];
                   <label for="is_notification2">NO</label>
               </div>
             </div>
+            <div class="row mb-3" id="noti-date-num" style="display:none;">
+              <label for="notification_after_booking_date" class="col-md-2 col-lg-2 col-form-label">Notification After Booking Date</label>
+              <div class="col-md-10 col-lg-10">
+                <input type="number" name="notification_after_booking_date" class="form-control" id="notification_after_booking_date" value="<?=$notification_after_booking_date?>">
+              </div>
+            </div>
             <div class="text-center">
               <button type="submit" class="btn btn-primary"><?=(($row)?'Save':'Add')?></button>
             </div>
@@ -193,6 +201,16 @@ $controllerRoute                = $module['controller_route'];
       $('#type-row').hide();
       $('input[name="type"]').removeAttr('required');
     }
+
+    const is_notification = '<?=$is_notification?>';
+    if (is_notification == 1) {
+      $('#noti-date-num').show();
+      $('input[name="notification_after_booking_date"]').attr('required', true);
+    } else {
+      $('#noti-date-num').hide();
+      $('input[name="notification_after_booking_date"]').removeAttr('required');
+    }
+
     $('input[name="shipment_type"]').on('change', function() {
       const selectedValue = $('input[name="shipment_type"]:checked').val();
       if (selectedValue === "Export") {
@@ -201,6 +219,17 @@ $controllerRoute                = $module['controller_route'];
       } else {
         $('#type-row').hide();
         $('input[name="type"]').removeAttr('required');
+      }
+    });
+
+    $('input[name="is_notification"]').on('change', function() {
+      const is_notification = $('input[name="is_notification"]:checked').val();
+      if (is_notification == 1) {
+        $('#noti-date-num').show();
+        $('input[name="notification_after_booking_date"]').attr('required', true);
+      } else {
+        $('#noti-date-num').hide();
+        $('input[name="notification_after_booking_date"]').removeAttr('required');
       }
     });
   })

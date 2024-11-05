@@ -87,7 +87,7 @@ $controllerRoute = $module['controller_route'];
                       }
                       ?>
                     </td>
-                    <td><?=(($row->is_notification)?'<span class="badge bg-success">YES</span>':'<span class="badge bg-success">NO</span>')?></td>
+                    <td><?=(($row->is_notification)?'<span class="badge bg-success">YES (T + '.$row->notification_after_booking_date.' days)</span>':'<span class="badge bg-success">NO</span>')?></td>
                     <td>
                       <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
                       <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>

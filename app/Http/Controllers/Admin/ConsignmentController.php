@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\GeneralSetting;
 use App\Models\Consignment;
+use App\Models\ConsignmentDetail;
 use App\Models\Customer;
+use App\Models\ProcessFlow;
 
 use Auth;
 use Session;
@@ -80,8 +82,25 @@ class ConsignmentController extends Controller
                         'pod'                               => $postData['pod'],
                         'booking_date'                      => date_format(date_create($postData['booking_date']), "Y-m-d"),
                     ];
-                    // Helper::pr($fields);
                     Consignment::insert($fields);
+                    /* consignment process flow */
+                        $process_flow_id    = $postData['process_flow_id'];
+                        $date_nums          = $postData['date_nums'];
+                        if(!empty($process_flow_id)){
+                            for($k=0;$k<count($process_flow_id);$k++){
+                                $booking_date       = date_format(date_create($postData['booking_date']), "Y-m-d");
+                                $notification_date  = date('Y-m-d',strtotime('+'.$date_nums[$k].' day', strtotime($booking_date)));
+                                $fields2            = [
+                                    'consignment_id'                        => $id,
+                                    'process_flow_id'                       => $process_flow_id[$k],
+                                    'date_nums'                             => $date_nums[$k],
+                                    'booking_date'                          => date_format(date_create($postData['booking_date']), "Y-m-d"),
+                                    'notification_date'                     => $notification_date,
+                                ];
+                                ConsignmentDetail::insert($fields2);
+                            }
+                        }
+                    /* consignment process flow */
                     return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Inserted Successfully !!!');
                 } else {
                     return redirect()->back()->with('error_message', 'All Fields Required !!!');
@@ -105,6 +124,7 @@ class ConsignmentController extends Controller
             $data['customers']              = Customer::select('id', 'name')->where('status', '=', 1)->orderBy('name', 'ASC')->get();
             if($request->isMethod('post')){
                 $postData = $request->all();
+                // Helper::pr($postData);
                 $rules = [
                     'shipment_type'             => 'required',
                     'customer_id'               => 'required',
@@ -123,6 +143,36 @@ class ConsignmentController extends Controller
                     ];
                     // Helper::pr($fields);
                     Consignment::where($this->data['primary_key'], '=', $id)->update($fields);
+                    
+                    /* consignment process flow */
+                        $process_flow_id    = $postData['process_flow_id'];
+                        $date_nums          = $postData['date_nums'];
+                        if(!empty($process_flow_id)){
+                            for($k=0;$k<count($process_flow_id);$k++){
+                                $booking_date       = date_format(date_create($postData['booking_date']), "Y-m-d");
+                                $notification_date  = date('Y-m-d',strtotime('+'.$date_nums[$k].' day', strtotime($booking_date)));
+
+                                $getConsignmentDetail = ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->first();
+                                if($getConsignmentDetail){
+                                    $fields2            = [
+                                        'date_nums'                             => $date_nums[$k],
+                                        'booking_date'                          => date_format(date_create($postData['booking_date']), "Y-m-d"),
+                                        'notification_date'                     => $notification_date,
+                                    ];
+                                    ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->update($fields2);
+                                } else {
+                                    $fields2            = [
+                                        'consignment_id'                        => $id,
+                                        'process_flow_id'                       => $process_flow_id[$k],
+                                        'date_nums'                             => $date_nums[$k],
+                                        'booking_date'                          => date_format(date_create($postData['booking_date']), "Y-m-d"),
+                                        'notification_date'                     => $notification_date,
+                                    ];
+                                    ConsignmentDetail::insert($fields2);
+                                }
+                            }
+                        }
+                    /* consignment process flow */
                     return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Updated Successfully !!!');
                 } else {
                     return redirect()->back()->with('error_message', 'All Fields Required !!!');
@@ -157,4 +207,51 @@ class ConsignmentController extends Controller
             return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' '.$msg.' Successfully !!!');
         }
     /* change status */
+    public function getProcessFlow(Request $request){
+        $apiStatus          = TRUE;
+        $apiMessage         = '';
+        $apiResponse        = [];
+        $apiExtraField      = '';
+        $apiExtraData       = '';
+        $postData           = $request->all();
+        $shipment_type      = $postData['shipment_type'];
+        
+        if($shipment_type == 'Import'){
+            $process_flows      = ProcessFlow::select('id', 'name', 'options', 'notification_after_booking_date')->where('status', '=', 1)->where('shipment_type', '=', $shipment_type)->orderBy('id', 'ASC')->get();
+        } else {
+            $type               = $postData['selectedValue2'];
+            $process_flows      = ProcessFlow::select('id', 'name', 'options', 'notification_after_booking_date')->where('status', '=', 1)->where('shipment_type', '=', $shipment_type)->where('type', '=', $type)->orderBy('id', 'ASC')->get();
+        }
+        // Helper::pr($process_flows);
+        $html               = '';
+        if(count($process_flows) > 0){
+            foreach($process_flows as $process_flow){
+                // $option_html = '';
+                // if($process_flow->options != ''){
+                //     $deal_keywords = explode(",", $process_flow->options);
+                //     if(!empty($deal_keywords)){
+                //         for($k=0;$k<count($deal_keywords);$k++){
+                //             $option_html = '<span class="badge">'.$deal_keywords[$k].' <span class="remove" data-tag="'.$deal_keywords[$k].'">&times;</span></span>';
+                //     }   }
+                // }
+                      
+                $html .= '<tr>
+                              <td><input type="hidden" name="process_flow_id[]" value="' . $process_flow->id . '">' . $process_flow->name . '</td>
+                              <td>' . $process_flow->options . '</td>
+                              <td><input type="hidden" name="date_nums[]" value="' . $process_flow->notification_after_booking_date . '">' . $process_flow->notification_after_booking_date . ' days</td>
+                            </tr>';
+            }
+            $apiResponse['processDateHTML']        = $html;
+            $apiStatus          = TRUE;
+        } else {
+            $apiResponse['processDateHTML']        = '';
+            $apiStatus          = FALSE;
+        }
+
+        http_response_code(200);
+        $apiMessage         = 'Data Available !!!';
+        $apiExtraField      = 'response_code';
+        $apiExtraData       = http_response_code();
+        $this->response_to_json($apiStatus, $apiMessage, $apiResponse, $apiExtraField, $apiExtraData);
+    }
 }
