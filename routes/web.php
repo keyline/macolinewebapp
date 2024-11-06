@@ -160,6 +160,7 @@ use Illuminate\Support\Facades\Route;
                 Route::get('consignment/delete/{id}', 'ConsignmentController@delete');
                 Route::get('consignment/change-status/{id}', 'ConsignmentController@change_status');
                 Route::post('consignment/get-process-flow', 'ConsignmentController@getProcessFlow');
+                Route::match(['get', 'post'], 'consignment/process-flow-details/{id}', 'ConsignmentController@process_flow_details');
             /* consignment */
         });
     });

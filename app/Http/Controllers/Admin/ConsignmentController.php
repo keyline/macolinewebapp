@@ -9,6 +9,8 @@ use App\Models\GeneralSetting;
 use App\Models\Consignment;
 use App\Models\ConsignmentDetail;
 use App\Models\Customer;
+use App\Models\Pol;
+use App\Models\Pod;
 use App\Models\ProcessFlow;
 
 use Auth;
@@ -34,7 +36,9 @@ class ConsignmentController extends Controller
             $page_name                      = 'consignment.list';
             $data['rows']                   = DB::table('consignments')
                                                 ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                ->select('consignments.*', 'customers.name as customer_name')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                 ->where('consignments.status', '!=', 3)
                                                 ->orderBy('consignments.id', 'DESC')
                                                 ->get();
@@ -111,6 +115,8 @@ class ConsignmentController extends Controller
             $page_name                      = 'consignment.add-edit';
             $data['row']                    = [];
             $data['customers']              = Customer::select('id', 'name')->where('status', '=', 1)->orderBy('name', 'ASC')->get();
+            $data['pols']                   = Pol::select('id', 'name')->where('status', '=', 1)->orderBy('name', 'ASC')->get();
+            $data['pods']                   = Pod::select('id', 'name')->where('status', '=', 1)->orderBy('name', 'ASC')->get();
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }
     /* add */
@@ -122,6 +128,8 @@ class ConsignmentController extends Controller
             $page_name                      = 'consignment.add-edit';
             $data['row']                    = Consignment::where($this->data['primary_key'], '=', $id)->first();
             $data['customers']              = Customer::select('id', 'name')->where('status', '=', 1)->orderBy('name', 'ASC')->get();
+            $data['pols']                   = Pol::select('id', 'name')->where('status', '=', 1)->orderBy('name', 'ASC')->get();
+            $data['pods']                   = Pod::select('id', 'name')->where('status', '=', 1)->orderBy('name', 'ASC')->get();
             if($request->isMethod('post')){
                 $postData = $request->all();
                 // Helper::pr($postData);
@@ -253,5 +261,42 @@ class ConsignmentController extends Controller
         $apiExtraField      = 'response_code';
         $apiExtraData       = http_response_code();
         $this->response_to_json($apiStatus, $apiMessage, $apiResponse, $apiExtraField, $apiExtraData);
+    }
+    public function process_flow_details(Request $request, $id){
+        $data['module']                 = $this->data;
+        $id                             = Helper::decoded($id);
+        $title                          = $this->data['title'].' Details';
+        $page_name                      = 'consignment.process-flow-details';
+        $data['row']                    = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.id', '=', $id)
+                                                ->first();
+        $data['consignmentDetails']     = ConsignmentDetail::where('consignment_id', '=', $id)->orderBy('process_flow_id', 'ASC')->get();
+        if($request->isMethod('post')){
+            $postData = $request->all();
+            // Helper::pr($postData,0);
+            $consignment_id     = $postData['consignment_id'];
+            $process_flow_id    = $postData['process_flow_id'];
+            $input_value        = $postData['input_value'];
+
+            if(!empty($process_flow_id)){
+                for($k=0;$k<count($process_flow_id);$k++){
+                    if(isset($input_value[$process_flow_id[$k]])){
+                        $fields             = [
+                            // 'process_flow_id'   => $process_flow_id[$k],
+                            'input_value'   => $input_value[$process_flow_id[$k]],
+                            'status'        => 1,
+                        ];
+                        // Helper::pr($fields,0);
+                        ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->update($fields);
+                    }
+                }
+            }
+            return redirect()->back()->with('success_message', 'Process Data Updated !!!');
+        }
+        echo $this->admin_after_login_layout($title,$page_name,$data);
     }
 }

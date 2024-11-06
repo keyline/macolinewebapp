@@ -84,13 +84,23 @@ $controllerRoute                = $module['controller_route'];
             <div class="row mb-3">
               <label for="pol" class="col-md-2 col-lg-2 col-form-label">Port Of Loading</label>
               <div class="col-md-10 col-lg-10">
-                <input type="text" name="pol" class="form-control" id="pol" value="<?=$pol?>" required>
+                <select name="pol" class="form-control" id="pol" required>
+                  <option value="" selected>Select Port Of Loading</option>
+                  <?php if($pols){ foreach($pols as $polRow){?>
+                  <option value="<?=$polRow->id?>" <?=(($polRow->id == $pol)?'selected':'')?>><?=$polRow->name?></option>
+                  <?php } }?>
+                </select>
               </div>
             </div>
             <div class="row mb-3">
               <label for="pod" class="col-md-2 col-lg-2 col-form-label">Port Of Discharge</label>
               <div class="col-md-10 col-lg-10">
-                <input type="text" name="pod" class="form-control" id="pod" value="<?=$pod?>" required>
+                <select name="pod" class="form-control" id="pod" required>
+                  <option value="" selected>Select Port Of Loading</option>
+                  <?php if($pods){ foreach($pods as $podRow){?>
+                  <option value="<?=$podRow->id?>" <?=(($podRow->id == $pod)?'selected':'')?>><?=$podRow->name?></option>
+                  <?php } }?>
+                </select>
               </div>
             </div>
             <div class="row mb-3">

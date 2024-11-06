@@ -55,8 +55,8 @@ $controllerRoute = $module['controller_route'];
                     <td><?=$row->customer_name?></td>
                     <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
                     <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
-                    <td><?=$row->pol?></td>
-                    <td><?=$row->pod?></td>
+                    <td><?=$row->pol_name?></td>
+                    <td><?=$row->pod_name?></td>
                     <td>
                       <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
                       <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>
