@@ -117,7 +117,7 @@ $controllerRoute                = $module['controller_route'];
                     <tr>
                       <th>Name</th>
                       <th>Options</th>
-                      <th>Date Number</th>
+                      <th>ETA</th>
                     </tr>
                   </thead>
                   <tbody id="process-flow-html">

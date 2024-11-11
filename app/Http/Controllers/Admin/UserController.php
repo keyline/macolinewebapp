@@ -21,6 +21,7 @@ use PDF;
 use Session;
 use Helper;
 use Hash;
+use DB;
 
 class UserController extends Controller
 {
@@ -222,7 +223,68 @@ class UserController extends Controller
     /* authentication */
     /* dashboard */
         public function dashboard(){
-            $data                           = [];
+            $data['rows1_count']            = DB::table('consignments')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Import')
+                                                ->where('consignments.type', '=', '')
+                                                ->count();
+            $data['rows2_count']            = DB::table('consignments')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'FCL')
+                                                ->count();
+            $data['rows3_count']            = DB::table('consignments')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'LCL')
+                                                ->count();
+            $data['rows4_count']            = DB::table('consignments')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                ->count();
+
+            $data['rows1']                  = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Import')
+                                                ->where('consignments.type', '=', '')
+                                                ->orderBy('consignments.id', 'DESC')
+                                                ->get();
+            $data['rows2']                  = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'FCL')
+                                                ->orderBy('consignments.id', 'DESC')
+                                                ->get();
+            $data['rows3']                  = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'LCL')
+                                                ->orderBy('consignments.id', 'DESC')
+                                                ->get();
+            $data['rows4']                  = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                ->orderBy('consignments.id', 'DESC')
+                                                ->get();
+
             $title                          = 'Dashboard';
             $page_name                      = 'dashboard';
             echo $this->admin_after_login_layout($title,$page_name,$data);

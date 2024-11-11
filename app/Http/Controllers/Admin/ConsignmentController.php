@@ -34,12 +34,44 @@ class ConsignmentController extends Controller
             $data['module']                 = $this->data;
             $title                          = $this->data['title'].' List';
             $page_name                      = 'consignment.list';
-            $data['rows']                   = DB::table('consignments')
+            $data['rows1']                  = DB::table('consignments')
                                                 ->join('customers', 'consignments.customer_id', '=', 'customers.id')
                                                 ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
                                                 ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
                                                 ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                 ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Import')
+                                                ->where('consignments.type', '=', '')
+                                                ->orderBy('consignments.id', 'DESC')
+                                                ->get();
+            $data['rows2']                  = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'FCL')
+                                                ->orderBy('consignments.id', 'DESC')
+                                                ->get();
+            $data['rows3']                  = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'LCL')
+                                                ->orderBy('consignments.id', 'DESC')
+                                                ->get();
+            $data['rows4']                  = DB::table('consignments')
+                                                ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                ->where('consignments.status', '!=', 3)
+                                                ->where('consignments.shipment_type', '=', 'Export')
+                                                ->where('consignments.type', '=', 'LCL CO LOAD')
                                                 ->orderBy('consignments.id', 'DESC')
                                                 ->get();
             echo $this->admin_after_login_layout($title,$page_name,$data);
@@ -85,6 +117,7 @@ class ConsignmentController extends Controller
                         'pol'                               => $postData['pol'],
                         'pod'                               => $postData['pod'],
                         'booking_date'                      => date_format(date_create($postData['booking_date']), "Y-m-d"),
+                        'consignment_status'                => 'Create',
                     ];
                     Consignment::insert($fields);
                     /* consignment process flow */
@@ -275,25 +308,32 @@ class ConsignmentController extends Controller
                                                 ->where('consignments.id', '=', $id)
                                                 ->first();
         $data['consignmentDetails']     = ConsignmentDetail::where('consignment_id', '=', $id)->orderBy('process_flow_id', 'ASC')->get();
+        $data['consignmentNotFilled']   = ConsignmentDetail::where('consignment_id', '=', $id)->where('status', '=', 0)->count();
         if($request->isMethod('post')){
             $postData = $request->all();
-            // Helper::pr($postData,0);
+            // Helper::pr($postData,0);die;
             $consignment_id     = $postData['consignment_id'];
             $process_flow_id    = $postData['process_flow_id'];
             $input_value        = $postData['input_value'];
+            
+            $delivery_status    = ((array_key_exists("delivery_status",$postData))?$postData['delivery_status']:'');
+            if($delivery_status){
+                Consignment::where('id', '=', $consignment_id)->update(['delivery_status' => 1, 'consignment_status' => 'Completed']);
+                return redirect()->back()->with('success_message', 'Consignment Completed Successfully !!!');
+            }
 
             if(!empty($process_flow_id)){
                 for($k=0;$k<count($process_flow_id);$k++){
                     if(isset($input_value[$process_flow_id[$k]])){
                         $fields             = [
-                            // 'process_flow_id'   => $process_flow_id[$k],
                             'input_value'   => $input_value[$process_flow_id[$k]],
+                            'hbl_number'    => ((array_key_exists("hbl_number",$postData))?$postData['hbl_number']:''),
                             'status'        => 1,
                         ];
-                        // Helper::pr($fields,0);
                         ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->update($fields);
                     }
                 }
+                Consignment::where('id', '=', $consignment_id)->update(['consignment_status' => 'Process']);
             }
             return redirect()->back()->with('success_message', 'Process Data Updated !!!');
         }
