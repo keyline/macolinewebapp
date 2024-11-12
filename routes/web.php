@@ -103,6 +103,13 @@ use Illuminate\Support\Facades\Route;
                     Route::get('module/delete/{id}', 'ModuleController@delete');
                     Route::get('module/change-status/{id}', 'ModuleController@change_status');
                 /* module */
+                /* role */
+                    Route::get('role/list', 'RoleController@list');
+                    Route::match(['get', 'post'], 'role/add', 'RoleController@add');
+                    Route::match(['get', 'post'], 'role/edit/{id}', 'RoleController@edit');
+                    Route::get('role/delete/{id}', 'RoleController@delete');
+                    Route::get('role/change-status/{id}', 'RoleController@change_status');
+                /* role */
                 /* sub users */
                     Route::get('sub-user/list', 'SubUserController@list');
                     Route::match(['get', 'post'], 'sub-user/add', 'SubUserController@add');
