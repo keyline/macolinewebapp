@@ -7,7 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\GeneralSetting;
 use App\Models\Admin;
-use App\Models\Hotel;
+use App\Models\Role;
+
 use Auth;
 use Session;
 use Helper;
@@ -44,6 +45,7 @@ class SubUserController extends Controller
                     'mobile'                => 'required',
                     'email'                 => 'required',
                     'password'              => 'required',
+                    'role_id'               => 'required',
                 ];
                 if($this->validate($request, $rules)){
                     $checkValue = Admin::where('name', '=', $postData['name'])->count();
@@ -52,6 +54,7 @@ class SubUserController extends Controller
                             'name'              => $postData['name'],
                             'mobile'            => $postData['mobile'],
                             'email'             => $postData['email'],
+                            'role_id'           => $postData['role_id'],
                             'password'          => Hash::make($postData['password']),
                         ];
                         Admin::insert($fields);
@@ -67,6 +70,7 @@ class SubUserController extends Controller
             $title                          = $this->data['title'].' Add';
             $page_name                      = 'sub-user.add-edit';
             $data['row']                    = [];
+            $data['roles']                  = Role::select('id', 'name')->where('status', '=', 1)->get();
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }
     /* add */
@@ -77,6 +81,7 @@ class SubUserController extends Controller
             $title                          = $this->data['title'].' Update';
             $page_name                      = 'sub-user.add-edit';
             $data['row']                    = Admin::where($this->data['primary_key'], '=', $id)->first();
+            $data['roles']                  = Role::select('id', 'name')->where('status', '=', 1)->get();
 
             if($request->isMethod('post')){
                 $postData = $request->all();
@@ -84,6 +89,7 @@ class SubUserController extends Controller
                     'name'                  => 'required',
                     'mobile'                => 'required',
                     'email'                 => 'required',
+                    'role_id'               => 'required',
                 ];
                 if($this->validate($request, $rules)){
                     $checkValue = Admin::where('name', '=', $postData['name'])->where('id', '!=', $id)->count();
@@ -93,6 +99,7 @@ class SubUserController extends Controller
                                 'name'                  => $postData['name'],
                                 'mobile'                => $postData['mobile'],
                                 'email'                 => $postData['email'],
+                                'role_id'           => $postData['role_id'],
                                 'password'              => Hash::make($postData['password']),
                                 'updated_at'            => date('Y-m-d H:i:s')
                             ];
@@ -101,6 +108,7 @@ class SubUserController extends Controller
                                 'name'                  => $postData['name'],
                                 'mobile'                => $postData['mobile'],
                                 'email'                 => $postData['email'],
+                                'role_id'           => $postData['role_id'],
                                 'updated_at'            => date('Y-m-d H:i:s')
                             ];
                         }

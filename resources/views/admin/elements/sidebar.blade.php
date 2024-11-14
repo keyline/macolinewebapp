@@ -15,6 +15,7 @@ if(!empty($parameters)){
     $pId2 = Helper::decoded($parameters['id2']);
   }
 }
+$user_type = session('type');
 ?>
 <div class="navbar-vertical-container">
   <div class="navbar-vertical-footer-offset">
@@ -44,39 +45,45 @@ if(!empty($parameters)){
           </div>
         <!-- End dashboard -->
         <!-- access -->
-          <div class="nav-item">
-            <a class="nav-link dropdown-toggle active <?=(($pageSegment == 'module' || $pageSegment == 'sub-user' || $pageSegment == 'access' || $pageSegment == 'role')?'':'collapsed')?>" href="#navbarVerticalMenuAccess" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuAccess" aria-expanded="<?=(($pageSegment == 'module' || $pageSegment == 'sub-user' || $pageSegment == 'access' || $pageSegment == 'role')?'true':'false')?>" aria-controls="navbarVerticalMenuAccess">
-              <i class="fa fa-lock nav-icon"></i>
-              <span class="nav-link-title">Access & Permission</span>
-            </a>
-            <div id="navbarVerticalMenuAccess" class="nav-collapse collapse <?=(($pageSegment == 'module' || $pageSegment == 'sub-user' || $pageSegment == 'access' || $pageSegment == 'role')?'show':'')?>" data-bs-parent="#navbarVerticalMenu">
-              <!-- <a class="nav-link <?=(($pageSegment == 'module')?'active':'')?>" href="<?=url('admin/module/list')?>">Modules</a> -->
-              <a class="nav-link <?=(($pageSegment == 'role')?'active':'')?>" href="<?=url('admin/role/list')?>">Roles</a>
-              <a class="nav-link <?=(($pageSegment == 'sub-user')?'active':'')?>" href="<?=url('admin/sub-user/list')?>">Sub Users</a>
-              <a class="nav-link <?=(($pageSegment == 'access')?'active':'')?>" href="<?=url('admin/access/list')?>">Give Access</a>
+          <?php if($user_type == 'ma'){?>
+            <div class="nav-item">
+              <a class="nav-link dropdown-toggle active <?=(($pageSegment == 'module' || $pageSegment == 'sub-user' || $pageSegment == 'access' || $pageSegment == 'role')?'':'collapsed')?>" href="#navbarVerticalMenuAccess" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuAccess" aria-expanded="<?=(($pageSegment == 'module' || $pageSegment == 'sub-user' || $pageSegment == 'access' || $pageSegment == 'role')?'true':'false')?>" aria-controls="navbarVerticalMenuAccess">
+                <i class="fa fa-lock nav-icon"></i>
+                <span class="nav-link-title">Access & Permission</span>
+              </a>
+              <div id="navbarVerticalMenuAccess" class="nav-collapse collapse <?=(($pageSegment == 'module' || $pageSegment == 'sub-user' || $pageSegment == 'access' || $pageSegment == 'role')?'show':'')?>" data-bs-parent="#navbarVerticalMenu">
+                <!-- <a class="nav-link <?=(($pageSegment == 'module')?'active':'')?>" href="<?=url('admin/module/list')?>">Modules</a> -->
+                <!-- <a class="nav-link <?=(($pageSegment == 'role')?'active':'')?>" href="<?=url('admin/role/list')?>">Roles</a> -->
+                <a class="nav-link <?=(($pageSegment == 'sub-user')?'active':'')?>" href="<?=url('admin/sub-user/list')?>">Sub Users</a>
+                <!-- <a class="nav-link <?=(($pageSegment == 'access')?'active':'')?>" href="<?=url('admin/access/list')?>">Give Access</a> -->
+              </div>
             </div>
-          </div>
+          <?php }?>
         <!-- End access -->
         <!-- masters -->
-          <div class="nav-item">
-            <a class="nav-link dropdown-toggle active <?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'':'collapsed')?>" href="#navbarVerticalMenuAccess2" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuAccess2" aria-expanded="<?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'true':'false')?>" aria-controls="navbarVerticalMenuAccess2">
-              <i class="fa fa-database nav-icon"></i>
-              <span class="nav-link-title">Masters</span>
-            </a>
-            <div id="navbarVerticalMenuAccess2" class="nav-collapse collapse <?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'show':'')?>" data-bs-parent="#navbarVerticalMenu">
-              <a class="nav-link <?=(($pageSegment == 'pol')?'active':'')?>" href="<?=url('admin/pol/list')?>">POL</a>
-              <a class="nav-link <?=(($pageSegment == 'pod')?'active':'')?>" href="<?=url('admin/pod/list')?>">POD</a>
-              <!-- <a class="nav-link <?=(($pageSegment == 'process-flow')?'active':'')?>" href="<?=url('admin/process-flow/list')?>">Process Flow</a> -->
+          <?php if($user_type == 'ma'){?>
+            <div class="nav-item">
+              <a class="nav-link dropdown-toggle active <?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'':'collapsed')?>" href="#navbarVerticalMenuAccess2" role="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalMenuAccess2" aria-expanded="<?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'true':'false')?>" aria-controls="navbarVerticalMenuAccess2">
+                <i class="fa fa-database nav-icon"></i>
+                <span class="nav-link-title">Masters</span>
+              </a>
+              <div id="navbarVerticalMenuAccess2" class="nav-collapse collapse <?=(($pageSegment == 'pol' || $pageSegment == 'pod' || $pageSegment == 'process-flow')?'show':'')?>" data-bs-parent="#navbarVerticalMenu">
+                <a class="nav-link <?=(($pageSegment == 'pol')?'active':'')?>" href="<?=url('admin/pol/list')?>">POL</a>
+                <a class="nav-link <?=(($pageSegment == 'pod')?'active':'')?>" href="<?=url('admin/pod/list')?>">POD</a>
+                <!-- <a class="nav-link <?=(($pageSegment == 'process-flow')?'active':'')?>" href="<?=url('admin/process-flow/list')?>">Process Flow</a> -->
+              </div>
             </div>
-          </div>
+          <?php }?>
         <!-- End masters -->
         <!-- customer -->
-          <div class="nav-item">
-            <a class="nav-link <?=(($pageSegment == 'customer')?'active':'')?>" href="<?=url('admin/customer/list')?>" data-placement="left">
-              <i class="fa fa-users nav-icon"></i>
-              <span class="nav-link-title">Customers</span>
-            </a>
-          </div>
+          <?php if($user_type == 'ma'){?>
+            <div class="nav-item">
+              <a class="nav-link <?=(($pageSegment == 'customer')?'active':'')?>" href="<?=url('admin/customer/list')?>" data-placement="left">
+                <i class="fa fa-users nav-icon"></i>
+                <span class="nav-link-title">Customers</span>
+              </a>
+            </div>
+          <?php }?>
         <!-- End customer -->
         <!-- customer -->
           <div class="nav-item">
@@ -94,22 +101,24 @@ if(!empty($parameters)){
             </a>
           </div> -->
         <!-- End page -->
-        <!-- email logs -->
-          <div class="nav-item">
-            <a class="nav-link <?=(($pageSegment == 'email-logs')?'active':'')?>" href="<?=url('admin/email-logs')?>" data-placement="left">
-              <i class="fa fa-history nav-icon"></i>
-              <span class="nav-link-title">Email Logs</span>
-            </a>
-          </div>
-        <!-- End email logs -->
-        <!-- login logs -->
-          <div class="nav-item">
-            <a class="nav-link <?=(($pageSegment == 'login-logs')?'active':'')?>" href="<?=url('admin/login-logs')?>" data-placement="left">
-              <i class="fa fa-sign-in nav-icon"></i>
-              <span class="nav-link-title">Login Logs</span>
-            </a>
-          </div>
-        <!-- End login logs -->
+        <?php if($user_type == 'ma'){?>
+          <!-- email logs -->
+            <div class="nav-item">
+              <a class="nav-link <?=(($pageSegment == 'email-logs')?'active':'')?>" href="<?=url('admin/email-logs')?>" data-placement="left">
+                <i class="fa fa-history nav-icon"></i>
+                <span class="nav-link-title">Email Logs</span>
+              </a>
+            </div>
+          <!-- End email logs -->
+          <!-- login logs -->
+            <div class="nav-item">
+              <a class="nav-link <?=(($pageSegment == 'login-logs')?'active':'')?>" href="<?=url('admin/login-logs')?>" data-placement="left">
+                <i class="fa fa-sign-in nav-icon"></i>
+                <span class="nav-link-title">Login Logs</span>
+              </a>
+            </div>
+          <!-- End login logs -->
+        <?php }?>
       </div>
     </div>
     <!-- End Content -->

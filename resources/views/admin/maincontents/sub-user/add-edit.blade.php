@@ -33,10 +33,12 @@ $controllerRoute                = $module['controller_route'];
       $name         = $row->name;
       $email        = $row->email;
       $mobile       = $row->mobile;
+      $role_id      = $row->role_id;
     } else {
       $name         = '';
       $email        = '';
       $mobile       = '';
+      $role_id      = '';
     }
     ?>
     <div class="col-xl-12">
@@ -44,6 +46,17 @@ $controllerRoute                = $module['controller_route'];
         <div class="card-body pt-3">
           <form method="POST" action="" enctype="multipart/form-data">
             @csrf
+            <div class="row mb-3">
+              <label for="role_id" class="col-md-2 col-lg-2 col-form-label">Role</label>
+              <div class="col-md-10 col-lg-10">
+                <select name="role_id" class="form-control" id="role_id" required>
+                  <option value="" selected>Select Role</option>
+                  <?php if($roles){ foreach($roles as $role){?>
+                  <option value="<?=$role->id?>" <?=(($role->id == $role_id)?'selected':'')?>><?=$role->name?></option>
+                  <?php } }?>
+                </select>
+              </div>
+            </div>
             <div class="row mb-3">
               <label for="name" class="col-md-2 col-lg-2 col-form-label">Name</label>
               <div class="col-md-10 col-lg-10">
