@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 // });
 /* Front Panel */
     // before login
+        Route::match(['get', 'post'], '/cron-for-notification', 'App\Http\Controllers\FrontController@cron_for_notification');
+
         Route::match(['get', 'post'], '/', 'App\Http\Controllers\FrontController@home');
         Route::match(['get', 'post'], '/search-result', 'App\Http\Controllers\FrontController@searchResult');
         Route::match(['get', 'post'], 'page/{id}', 'App\Http\Controllers\FrontController@page');
