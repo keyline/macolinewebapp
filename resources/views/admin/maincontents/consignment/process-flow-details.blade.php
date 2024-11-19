@@ -3,6 +3,7 @@ use App\Models\ProcessFlow;
 use App\Models\ConsignmentDetail;
 use App\Helpers\Helper;
 $controllerRoute = $module['controller_route'];
+$user_type = session('type');
 ?>
 <div class="pagetitle">
   <h1><?=$page_header?></h1>

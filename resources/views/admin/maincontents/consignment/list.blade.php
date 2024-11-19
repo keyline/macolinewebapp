@@ -3,6 +3,7 @@ use App\Models\Consignment;
 use App\Models\ConsignmentDetail;
 use App\Models\Role;
 use App\Helpers\Helper;
+$user_type = session('type');
 $controllerRoute        = $module['controller_route'];
 $getRole                = Role::where('id', '=', $admin->role_id)->first();
 $import_access          = (($getRole)?$getRole->import_access:0);
