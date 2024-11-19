@@ -119,7 +119,7 @@ class ConsignmentController extends Controller
                         'booking_date'                      => date_format(date_create($postData['booking_date']), "Y-m-d"),
                         'consignment_status'                => 'Create',
                     ];
-                    $consignment_id = Consignment::consignment_id($fields);
+                    $consignment_id = Consignment::insertGetId($fields);
                     /* consignment process flow */
                         $process_flow_id    = $postData['process_flow_id'];
                         $date_nums          = $postData['date_nums'];
