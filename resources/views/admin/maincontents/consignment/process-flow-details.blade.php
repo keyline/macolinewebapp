@@ -109,7 +109,7 @@ $user_type = session('type');
                           </td>
                           <!-- <td><?=date_format(date_create($consignmentDetail->booking_date), "M d, Y")?></td> -->
                           <td><?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?></td>
-                          <td><?=(($consignmentDetail->updated_on != '')?date_format(date_create($consignmentDetail->notification_date), "M d, Y h:i A"):'')?></td>
+                          <td><?=(($consignmentDetail->updated_on != '')?date_format(date_create($consignmentDetail->updated_on), "M d, Y h:i A"):'')?></td>
                           <td>
                             <?php
                             $getUser = Admin::select('name')->where('id', '=', $consignmentDetail->updated_by)->first();

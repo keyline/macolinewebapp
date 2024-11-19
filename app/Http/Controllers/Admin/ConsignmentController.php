@@ -311,7 +311,7 @@ class ConsignmentController extends Controller
         $data['consignmentNotFilled']   = ConsignmentDetail::where('consignment_id', '=', $id)->where('status', '=', 0)->count();
         if($request->isMethod('post')){
             $postData = $request->all();
-            // Helper::pr($postData,0);die;
+            Helper::pr($postData,0);die;
             $consignment_id     = $postData['consignment_id'];
             $process_flow_id    = $postData['process_flow_id'];
             $input_value        = $postData['input_value'];
