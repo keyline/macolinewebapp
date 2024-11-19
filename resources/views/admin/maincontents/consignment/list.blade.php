@@ -82,9 +82,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                         <th scope="col">Date Of Booking</th>
                         <th scope="col">Type</th>
                         <th scope="col">POL<br>POD</th>
-                        <th scope="col">MBL Number</th>
-                        <th scope="col">HBL Number</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">MBL Number<br>HBL Number</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -92,7 +90,16 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                       <?php if(count($rows1)>0){ $sl=1; foreach($rows1 as $row){?>
                         <tr>
                           <th scope="row"><?=$sl++?></th>
-                          <td><?=$row->consignment_no?></td>
+                          <td>
+                            <?=$row->consignment_no?><br>
+                            <?php if($row->consignment_status == 'New'){?>
+                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Process'){?>
+                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Completed'){?>
+                              <span class="badge bg-success"><?=$row->consignment_status?></span>
+                            <?php }?>
+                          </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
                           <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
@@ -101,22 +108,11 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             <?php
                             $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 1)->first();
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
-                            ?>
-                          </td>
-                          <td>
+                            ?><br>
                             <?php
                             $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 2)->first();
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
                             ?>
-                          </td>
-                          <td>
-                            <?php if($row->consignment_status == 'New'){?>
-                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Process'){?>
-                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Completed'){?>
-                              <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
                           </td>
                           <td>
                             <?php if($user_type == 'ma'){?>
@@ -159,9 +155,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                         <th scope="col">Date Of Booking</th>
                         <th scope="col">Type</th>
                         <th scope="col">POL<br>POD</th>
-                        <th scope="col">MBL Number</th>
-                        <th scope="col">HBL Number</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">MBL Number<br>HBL Number</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -169,7 +163,16 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                       <?php if(count($rows2)>0){ $sl=1; foreach($rows2 as $row){?>
                         <tr>
                           <th scope="row"><?=$sl++?></th>
-                          <td><?=$row->consignment_no?></td>
+                          <td>
+                            <?=$row->consignment_no?><br>
+                            <?php if($row->consignment_status == 'New'){?>
+                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Process'){?>
+                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Completed'){?>
+                              <span class="badge bg-success"><?=$row->consignment_status?></span>
+                            <?php }?>
+                          </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
                           <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
@@ -184,9 +187,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
                             }
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
-                            ?>
-                          </td>
-                          <td>
+                            ?><br>
                             <?php
                             if($row->type == 'FCL'){
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 21)->first();
@@ -197,15 +198,6 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             }
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
                             ?>
-                          </td>
-                          <td>
-                            <?php if($row->consignment_status == 'New'){?>
-                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Process'){?>
-                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Completed'){?>
-                              <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
                           </td>
                           <td>
                             <?php if($user_type == 'ma'){?>
@@ -239,9 +231,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                         <th scope="col">Date Of Booking</th>
                         <th scope="col">Type</th>
                         <th scope="col">POL<br>POD</th>
-                        <th scope="col">MBL Number</th>
-                        <th scope="col">HBL Number</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">MBL Number<br>HBL Number</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -249,7 +239,16 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                       <?php if(count($rows3)>0){ $sl=1; foreach($rows3 as $row){?>
                         <tr>
                           <th scope="row"><?=$sl++?></th>
-                          <td><?=$row->consignment_no?></td>
+                          <td>
+                            <?=$row->consignment_no?><br>
+                            <?php if($row->consignment_status == 'New'){?>
+                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Process'){?>
+                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Completed'){?>
+                              <span class="badge bg-success"><?=$row->consignment_status?></span>
+                            <?php }?>
+                          </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
                           <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
@@ -264,9 +263,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
                             }
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
-                            ?>
-                          </td>
-                          <td>
+                            ?><br>
                             <?php
                             if($row->type == 'FCL'){
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 21)->first();
@@ -277,15 +274,6 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             }
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
                             ?>
-                          </td>
-                          <td>
-                            <?php if($row->consignment_status == 'New'){?>
-                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Process'){?>
-                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Completed'){?>
-                              <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
                           </td>
                           <td>
                             <?php if($user_type == 'ma'){?>
@@ -319,9 +307,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                         <th scope="col">Date Of Booking</th>
                         <th scope="col">Type</th>
                         <th scope="col">POL<br>POD</th>
-                        <th scope="col">MBL Number</th>
-                        <th scope="col">HBL Number</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">MBL Number<br>HBL Number</th>
                         <th scope="col">Action</th>
                       </tr>
                     </thead>
@@ -329,7 +315,16 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                       <?php if(count($rows4)>0){ $sl=1; foreach($rows4 as $row){?>
                         <tr>
                           <th scope="row"><?=$sl++?></th>
-                          <td><?=$row->consignment_no?></td>
+                          <td>
+                            <?=$row->consignment_no?><br>
+                            <?php if($row->consignment_status == 'New'){?>
+                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Process'){?>
+                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
+                            <?php } elseif($row->consignment_status == 'Completed'){?>
+                              <span class="badge bg-success"><?=$row->consignment_status?></span>
+                            <?php }?>
+                          </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
                           <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
@@ -344,9 +339,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
                             }
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
-                            ?>
-                          </td>
-                          <td>
+                            ?><br>
                             <?php
                             if($row->type == 'FCL'){
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 21)->first();
@@ -357,15 +350,6 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             }
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
                             ?>
-                          </td>
-                          <td>
-                            <?php if($row->consignment_status == 'New'){?>
-                              <span class="badge bg-primary"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Process'){?>
-                              <span class="badge bg-warning"><?=$row->consignment_status?></span>
-                            <?php } elseif($row->consignment_status == 'Completed'){?>
-                              <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
                           </td>
                           <td>
                             <?php if($user_type == 'ma'){?>

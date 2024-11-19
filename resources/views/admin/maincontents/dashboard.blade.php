@@ -125,25 +125,21 @@ $user_type = session('type');
                   <thead>
                     <tr>
                       <th scope="col">#</th>
-                      <th scope="col">Consignment No.</th>
-                      <th scope="col">Customer Name</th>
-                      <th scope="col">Date Of Booking</th>
-                      <th scope="col">Type</th>
-                      <th scope="col">POL<br>POD</th>
-                      <th scope="col">Status</th>
-                      <th scope="col">Action</th>
+                        <th scope="col">Consignment No.</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Date Of Booking</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">POL<br>POD</th>
+                        <th scope="col">MBL Number<br>HBL Number</th>
+                        <th scope="col">Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php if(count($rows1)>0){ $sl=1; foreach($rows1 as $row){?>
                       <tr>
                         <th scope="row"><?=$sl++?></th>
-                        <td><?=$row->consignment_no?></td>
-                        <td><?=$row->customer_name?></td>
-                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
-                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
-                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
+                          <?=$row->consignment_no?><br>
                           <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
@@ -152,17 +148,32 @@ $user_type = session('type');
                             <span class="badge bg-success"><?=$row->consignment_status?></span>
                           <?php }?>
                         </td>
+                        <td><?=$row->customer_name?></td>
+                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
+                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
+                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
+                        <td>
+                          <?php
+                          $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 1)->first();
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?><br>
+                          <?php
+                          $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 2)->first();
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?>
+                        </td>
                         <td>
                           <?php if($user_type == 'ma'){?>
-                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                            <!-- <?php if($row->status){?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                            <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                            <?php if($row->status){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
                             <?php } else {?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
-                            <?php }?> -->
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php }?>
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
+                          <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
@@ -183,7 +194,7 @@ $user_type = session('type');
                       <th scope="col">Date Of Booking</th>
                       <th scope="col">Type</th>
                       <th scope="col">POL<br>POD</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">MBL Number<br>HBL Number</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -191,12 +202,8 @@ $user_type = session('type');
                     <?php if(count($rows2)>0){ $sl=1; foreach($rows2 as $row){?>
                       <tr>
                         <th scope="row"><?=$sl++?></th>
-                        <td><?=$row->consignment_no?></td>
-                        <td><?=$row->customer_name?></td>
-                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
-                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
-                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
+                          <?=$row->consignment_no?><br>
                           <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
@@ -205,17 +212,44 @@ $user_type = session('type');
                             <span class="badge bg-success"><?=$row->consignment_status?></span>
                           <?php }?>
                         </td>
+                        <td><?=$row->customer_name?></td>
+                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
+                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
+                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
+                        <td>
+                          <?php
+                          if($row->type == 'FCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 20)->first();
+                          } elseif($row->type == 'LCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 27)->first();
+                          } elseif($row->type == 'LCL CO LOAD'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
+                          }
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?><br>
+                          <?php
+                          if($row->type == 'FCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 21)->first();
+                          } elseif($row->type == 'LCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 28)->first();
+                          } elseif($row->type == 'LCL CO LOAD'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 35)->first();
+                          }
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?>
+                        </td>
                         <td>
                           <?php if($user_type == 'ma'){?>
-                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                            <!-- <?php if($row->status){?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                            <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                            <?php if($row->status){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
                             <?php } else {?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
-                            <?php }?> -->
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php }?>
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
+                          <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
@@ -236,7 +270,7 @@ $user_type = session('type');
                       <th scope="col">Date Of Booking</th>
                       <th scope="col">Type</th>
                       <th scope="col">POL<br>POD</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">MBL Number<br>HBL Number</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -244,12 +278,8 @@ $user_type = session('type');
                     <?php if(count($rows3)>0){ $sl=1; foreach($rows3 as $row){?>
                       <tr>
                         <th scope="row"><?=$sl++?></th>
-                        <td><?=$row->consignment_no?></td>
-                        <td><?=$row->customer_name?></td>
-                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
-                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
-                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
+                          <?=$row->consignment_no?><br>
                           <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
@@ -258,17 +288,44 @@ $user_type = session('type');
                             <span class="badge bg-success"><?=$row->consignment_status?></span>
                           <?php }?>
                         </td>
+                        <td><?=$row->customer_name?></td>
+                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
+                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
+                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
+                        <td>
+                          <?php
+                          if($row->type == 'FCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 20)->first();
+                          } elseif($row->type == 'LCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 27)->first();
+                          } elseif($row->type == 'LCL CO LOAD'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
+                          }
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?><br>
+                          <?php
+                          if($row->type == 'FCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 21)->first();
+                          } elseif($row->type == 'LCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 28)->first();
+                          } elseif($row->type == 'LCL CO LOAD'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 35)->first();
+                          }
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?>
+                        </td>
                         <td>
                           <?php if($user_type == 'ma'){?>
-                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                            <!-- <?php if($row->status){?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                            <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                            <?php if($row->status){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
                             <?php } else {?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
-                            <?php }?> -->
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php }?>
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
+                          <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
@@ -289,7 +346,7 @@ $user_type = session('type');
                       <th scope="col">Date Of Booking</th>
                       <th scope="col">Type</th>
                       <th scope="col">POL<br>POD</th>
-                      <th scope="col">Status</th>
+                      <th scope="col">MBL Number<br>HBL Number</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -297,12 +354,8 @@ $user_type = session('type');
                     <?php if(count($rows4)>0){ $sl=1; foreach($rows4 as $row){?>
                       <tr>
                         <th scope="row"><?=$sl++?></th>
-                        <td><?=$row->consignment_no?></td>
-                        <td><?=$row->customer_name?></td>
-                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
-                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
-                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
+                          <?=$row->consignment_no?><br>
                           <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
@@ -311,17 +364,44 @@ $user_type = session('type');
                             <span class="badge bg-success"><?=$row->consignment_status?></span>
                           <?php }?>
                         </td>
+                        <td><?=$row->customer_name?></td>
+                        <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
+                        <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
+                        <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
+                        <td>
+                          <?php
+                          if($row->type == 'FCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 20)->first();
+                          } elseif($row->type == 'LCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 27)->first();
+                          } elseif($row->type == 'LCL CO LOAD'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
+                          }
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?><br>
+                          <?php
+                          if($row->type == 'FCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 21)->first();
+                          } elseif($row->type == 'LCL'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 28)->first();
+                          } elseif($row->type == 'LCL CO LOAD'){
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 35)->first();
+                          }
+                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                          ?>
+                        </td>
                         <td>
                           <?php if($user_type == 'ma'){?>
-                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                            <!-- <?php if($row->status){?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                            <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                            <?php if($row->status){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
                             <?php } else {?>
-                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
-                            <?php }?> -->
+                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php }?>
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
+                          <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
