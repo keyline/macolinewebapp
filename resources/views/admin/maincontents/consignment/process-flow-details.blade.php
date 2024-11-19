@@ -1,6 +1,7 @@
 <?php
 use App\Models\ProcessFlow;
 use App\Models\ConsignmentDetail;
+use App\Models\Admin;
 use App\Helpers\Helper;
 $controllerRoute = $module['controller_route'];
 $user_type = session('type');
@@ -107,11 +108,14 @@ $user_type = session('type');
                           </td>
                           <!-- <td><?=date_format(date_create($consignmentDetail->booking_date), "M d, Y")?></td> -->
                           <td>
-                            <?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?>
-                              
+                            <?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?><br>
+                            <?=(($consignmentDetail->updated_on != '')?date_format(date_create($consignmentDetail->notification_date), "M d, Y h:i A"):'')?>
                           </td>
                           <td>
-                            
+                            <?php
+                            $getUser = Admin::select('name')->where('id', '=', $consignmentDetail->updated_by)->first();
+                            echo (($getUser)?$getUser->name:'');
+                            ?>
                           </td>
                           <td>
                             <?php if($getProcessFlow){?>

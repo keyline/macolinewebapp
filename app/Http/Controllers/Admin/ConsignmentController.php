@@ -328,6 +328,8 @@ class ConsignmentController extends Controller
                         $fields             = [
                             'input_value'   => $input_value[$process_flow_id[$k]],
                             'hbl_number'    => ((array_key_exists("hbl_number",$postData))?$postData['hbl_number']:''),
+                            'updated_on'    => date('Y-m-d H:i:s'),
+                            'updated_by'    => session('user_id'),
                             'status'        => 1,
                         ];
                         ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->update($fields);
