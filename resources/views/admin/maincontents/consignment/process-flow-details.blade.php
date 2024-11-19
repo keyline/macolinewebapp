@@ -137,7 +137,7 @@ $user_type = session('type');
                                 $options = explode(',', $getProcessFlow->options);
                                 ?>
                                 <?php if(!empty($options)){ for($m=0;$m<count($options);$m++){?>
-                                  <input type="radio" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$options[$m]?>" <?=(($consignmentDetail->input_value == $options[$m])?'checked':'')?> <?=(($consignmentDetail->input_value !=)?'disabled':'')?>> <?=$options[$m]?>
+                                  <input type="radio" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$options[$m]?>" <?=(($consignmentDetail->input_value == $options[$m])?'checked':'')?>> <?=$options[$m]?>
                                 <?php } }?>
                                 <?php if($getProcessFlow->id == 21 && $consignmentDetail->input_value == 'Applicable'){?>
                                   <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number" <?=(($consignmentDetail->input_value != '')?'readonly':'')?>>
