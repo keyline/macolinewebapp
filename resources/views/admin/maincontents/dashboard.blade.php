@@ -1,4 +1,7 @@
 <?php
+use App\Models\Consignment;
+use App\Models\ConsignmentDetail;
+use App\Models\Role;
 use App\Helpers\Helper;
 $user_type = session('type');
 ?>
