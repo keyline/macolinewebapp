@@ -4,6 +4,7 @@ use App\Models\ConsignmentDetail;
 use App\Models\Role;
 use App\Helpers\Helper;
 $user_type = session('type');
+$controllerRoute = 'consignment';
 ?>
 <!-- Content -->
   <div class="content container-fluid">
