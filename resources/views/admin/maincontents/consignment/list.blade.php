@@ -109,7 +109,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             ?>
                           </td>
                           <td>
-                            <?php if($row->consignment_status == 'Create'){?>
+                            <?php if($row->consignment_status == 'New'){?>
                               <span class="badge bg-primary"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Process'){?>
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -118,15 +118,17 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             <?php }?>
                           </td>
                           <td>
-                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
-                            <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>
-                            <?php if($row->status){?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
-                            <?php } else {?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php if($user_type == 'ma'){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                              <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                              <?php if($row->status){?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
+                              <?php } else {?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                              <?php }?>
                             <?php }?>
                             <br><br>
-                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                           </td>
                         </tr>
                       <?php } } else {?>
@@ -196,7 +198,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             ?>
                           </td>
                           <td>
-                            <?php if($row->consignment_status == 'Create'){?>
+                            <?php if($row->consignment_status == 'New'){?>
                               <span class="badge bg-primary"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Process'){?>
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -205,15 +207,17 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             <?php }?>
                           </td>
                           <td>
-                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
-                            <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>
-                            <?php if($row->status){?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
-                            <?php } else {?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php if($user_type == 'ma'){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                              <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                              <?php if($row->status){?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
+                              <?php } else {?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                              <?php }?>
                             <?php }?>
                             <br><br>
-                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                           </td>
                         </tr>
                       <?php } } else {?>
@@ -274,7 +278,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             ?>
                           </td>
                           <td>
-                            <?php if($row->consignment_status == 'Create'){?>
+                            <?php if($row->consignment_status == 'New'){?>
                               <span class="badge bg-primary"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Process'){?>
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -283,15 +287,17 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             <?php }?>
                           </td>
                           <td>
-                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
-                            <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>
-                            <?php if($row->status){?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
-                            <?php } else {?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php if($user_type == 'ma'){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                              <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                              <?php if($row->status){?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
+                              <?php } else {?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                              <?php }?>
                             <?php }?>
                             <br><br>
-                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                           </td>
                         </tr>
                       <?php } } else {?>
@@ -352,7 +358,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             ?>
                           </td>
                           <td>
-                            <?php if($row->consignment_status == 'Create'){?>
+                            <?php if($row->consignment_status == 'New'){?>
                               <span class="badge bg-primary"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Process'){?>
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -361,15 +367,17 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             <?php }?>
                           </td>
                           <td>
-                            <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
-                            <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>
-                            <?php if($row->status){?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
-                            <?php } else {?>
-                              <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                            <?php if($user_type == 'ma'){?>
+                              <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
+                              <!-- <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a> -->
+                              <?php if($row->status){?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate <?=$module['title']?>"><i class="fa fa-check"></i></a>
+                              <?php } else {?>
+                                <a href="<?=url('admin/' . $controllerRoute . '/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate <?=$module['title']?>"><i class="fa fa-times"></i></a>
+                              <?php }?>
                             <?php }?>
                             <br><br>
-                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                            <a href="<?=url('admin/' . $controllerRoute . '/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-info-circle"></i> Update Status</a>
                           </td>
                         </tr>
                       <?php } } else {?>

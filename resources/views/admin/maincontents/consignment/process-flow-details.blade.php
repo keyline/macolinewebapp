@@ -38,7 +38,7 @@ $controllerRoute = $module['controller_route'];
               <div style="background-color: beige;padding: 10px;">
                 <h5>Consignment No.</h5>
                 <span><?=(($row)?$row->consignment_no:'')?></span>
-                <?php if($row->consignment_status == 'Create'){?>
+                <?php if($row->consignment_status == 'New'){?>
                   <span class="badge bg-primary"><?=$row->consignment_status?></span>
                 <?php } elseif($row->consignment_status == 'Process'){?>
                   <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -87,9 +87,10 @@ $controllerRoute = $module['controller_route'];
                 <table class="table table-bordered nowrap">
                   <thead>
                     <tr>
-                      <th scope="col">Process Flow Name</th>
-                      <th scope="col">ETA</th>
-                      <th scope="col">Input Value</th>
+                      <th scope="col" style="font-weight: bold; text-align:center;">Process Flow Name</th>
+                      <th scope="col" style="font-weight: bold; text-align:center;">ETA/<br>Updated On</th>
+                      <th scope="col" style="font-weight: bold; text-align:center;">Updated By</th>
+                      <th scope="col" style="font-weight: bold; text-align:center;">Input Value</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -104,17 +105,23 @@ $controllerRoute = $module['controller_route'];
                             <input type="hidden" name="process_flow_id[]" value="<?=$consignmentDetail->process_flow_id?>">
                           </td>
                           <!-- <td><?=date_format(date_create($consignmentDetail->booking_date), "M d, Y")?></td> -->
-                          <td><?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?></td>
+                          <td>
+                            <?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?>
+                              
+                          </td>
+                          <td>
+                            
+                          </td>
                           <td>
                             <?php if($getProcessFlow){?>
                               <?php if($getProcessFlow->form_element_type == 'textbox'){?>
-                                <input type="text" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>" placeholder="Enter <?=$getProcessFlow->name?>">
+                                <input type="text" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>" placeholder="Enter <?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value !=)?'readonly':'')?>>
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'select'){?>
                                 <?php
                                 $options = explode(',', $getProcessFlow->options);
                                 ?>
-                                <select class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]">
+                                <select class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" <?=(($consignmentDetail->input_value !=)?'disabled':'')?>>
                                   <option value="" selected>Select</option>
                                   <?php if(!empty($options)){ for($s=0;$s<count($options);$s++){?>
                                     <option value="<?=$options[$s]?>" <?=(($options[$s] == $consignmentDetail->input_value)?'selected':'')?>><?=$options[$s]?></option>
@@ -122,27 +129,27 @@ $controllerRoute = $module['controller_route'];
                                 </select>
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'checkbox'){?>
-                                <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?>> <?=$getProcessFlow->name?>
+                                <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?> <?=(($consignmentDetail->input_value !=)?'disabled':'')?>> <?=$getProcessFlow->name?>
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'radio'){?>
                                 <?php
                                 $options = explode(',', $getProcessFlow->options);
                                 ?>
                                 <?php if(!empty($options)){ for($m=0;$m<count($options);$m++){?>
-                                  <input type="radio" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$options[$m]?>" <?=(($consignmentDetail->input_value == $options[$m])?'checked':'')?>> <?=$options[$m]?>
+                                  <input type="radio" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$options[$m]?>" <?=(($consignmentDetail->input_value == $options[$m])?'checked':'')?> <?=(($consignmentDetail->input_value !=)?'disabled':'')?>> <?=$options[$m]?>
                                 <?php } }?>
                                 <?php if($getProcessFlow->id == 21 && $consignmentDetail->input_value == 'Applicable'){?>
-                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number">
+                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number" <?=(($consignmentDetail->input_value !=)?'readonly':'')?>>
                                 <?php }?>
                                 <?php if($getProcessFlow->id == 28 && $consignmentDetail->input_value == 'Applicable'){?>
-                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number">
+                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number" <?=(($consignmentDetail->input_value !=)?'readonly':'')?>>
                                 <?php }?>
                                 <?php if($getProcessFlow->id == 35 && $consignmentDetail->input_value == 'Applicable'){?>
-                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number">
+                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number" <?=(($consignmentDetail->input_value !=)?'readonly':'')?>>
                                 <?php }?>
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'datebox'){?>
-                                <input type="date" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>">
+                                <input type="date" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>" <?=(($consignmentDetail->input_value !=)?'readonly':'')?>>
                               <?php }?>
                             <?php }?>
                           </td>
@@ -182,7 +189,7 @@ $controllerRoute = $module['controller_route'];
                             </td>
                             <td><?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?></td>
                             <td>
-                              <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?>> <?=$getProcessFlow->name?>
+                              <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?> <?=(($consignmentDetail->input_value !=)?'disabled':'')?>> <?=$getProcessFlow->name?>
                             </td>
                           </tr>
                         <?php }?>

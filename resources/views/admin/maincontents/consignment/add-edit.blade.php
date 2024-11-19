@@ -96,7 +96,7 @@ $controllerRoute                = $module['controller_route'];
               <label for="pod" class="col-md-2 col-lg-2 col-form-label">Port Of Discharge</label>
               <div class="col-md-10 col-lg-10">
                 <select name="pod" class="form-control" id="pod" required>
-                  <option value="" selected>Select Port Of Loading</option>
+                  <option value="" selected>Select Port Of Discharge</option>
                   <?php if($pods){ foreach($pods as $podRow){?>
                   <option value="<?=$podRow->id?>" <?=(($podRow->id == $pod)?'selected':'')?>><?=$podRow->name?></option>
                   <?php } }?>
@@ -158,7 +158,7 @@ $controllerRoute                = $module['controller_route'];
         // console.log(res.status);
           // res = $.parseJSON(res);
           if(res.status){
-            $('#process-flow-dates').show();
+            $('#process-flow-dates').hide();
             $('#process-flow-html').html(res.data.processDateHTML);
           } else {
             $('#process-flow-dates').hide();
@@ -189,7 +189,7 @@ $controllerRoute                = $module['controller_route'];
             // console.log(res.status);
               // res = $.parseJSON(res);
               if(res.status){
-                $('#process-flow-dates').show();
+                $('#process-flow-dates').hide();
                 $('#process-flow-html').html(res.data.processDateHTML);
               } else {
                 $('#process-flow-dates').hide();
@@ -214,7 +214,7 @@ $controllerRoute                = $module['controller_route'];
           // console.log(res.status);
             // res = $.parseJSON(res);
             if(res.status){
-              $('#process-flow-dates').show();
+              $('#process-flow-dates').hide();
               $('#process-flow-html').html(res.data.processDateHTML);
             } else {
               $('#process-flow-dates').hide();

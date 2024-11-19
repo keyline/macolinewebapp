@@ -144,7 +144,7 @@ $user_type = session('type');
                         <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
                         <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
-                          <?php if($row->consignment_status == 'Create'){?>
+                          <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
                             <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -153,14 +153,16 @@ $user_type = session('type');
                           <?php }?>
                         </td>
                         <td>
-                          <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                          <?php if($row->status){?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
-                          <?php } else {?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                          <?php if($user_type == 'ma'){?>
+                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
+                            <!-- <?php if($row->status){?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <?php } else {?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                            <?php }?> -->
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
@@ -195,7 +197,7 @@ $user_type = session('type');
                         <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
                         <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
-                          <?php if($row->consignment_status == 'Create'){?>
+                          <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
                             <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -204,14 +206,16 @@ $user_type = session('type');
                           <?php }?>
                         </td>
                         <td>
-                          <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                          <?php if($row->status){?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
-                          <?php } else {?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                          <?php if($user_type == 'ma'){?>
+                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
+                            <!-- <?php if($row->status){?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <?php } else {?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                            <?php }?> -->
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
@@ -246,7 +250,7 @@ $user_type = session('type');
                         <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
                         <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
-                          <?php if($row->consignment_status == 'Create'){?>
+                          <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
                             <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -255,14 +259,16 @@ $user_type = session('type');
                           <?php }?>
                         </td>
                         <td>
-                          <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                          <?php if($row->status){?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
-                          <?php } else {?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                          <?php if($user_type == 'ma'){?>
+                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
+                            <!-- <?php if($row->status){?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <?php } else {?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                            <?php }?> -->
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
@@ -297,7 +303,7 @@ $user_type = session('type');
                         <td><?=$row->shipment_type?> <?=(($row->type != '')?'('.$row->type.')':'')?></td>
                         <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
-                          <?php if($row->consignment_status == 'Create'){?>
+                          <?php if($row->consignment_status == 'New'){?>
                             <span class="badge bg-primary"><?=$row->consignment_status?></span>
                           <?php } elseif($row->consignment_status == 'Process'){?>
                             <span class="badge bg-warning"><?=$row->consignment_status?></span>
@@ -306,14 +312,16 @@ $user_type = session('type');
                           <?php }?>
                         </td>
                         <td>
-                          <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
-                          <?php if($row->status){?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
-                          <?php } else {?>
-                            <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                          <?php if($user_type == 'ma'){?>
+                            <a href="<?=url('admin/consignment/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit Consignment"><i class="fa fa-edit"></i></a>
+                            <!-- <?php if($row->status){?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-success btn-sm" title="Activate Consignment"><i class="fa fa-check"></i></a>
+                            <?php } else {?>
+                              <a href="<?=url('admin/consignment/change-status/'.Helper::encoded($row->id))?>" class="btn btn-outline-warning btn-sm" title="Deactivate Consignment"><i class="fa fa-times"></i></a>
+                            <?php }?> -->
                           <?php }?>
                           <br><br>
-                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Process Flow Details</a>
+                          <a href="<?=url('admin/consignment/process-flow-details/'.Helper::encoded($row->id))?>" class="btn btn-info btn-sm" title="Edit Consignment"><i class="fa fa-info-circle"></i> Update Status</a>
                         </td>
                       </tr>
                     <?php } } else {?>
