@@ -314,6 +314,7 @@ class ConsignmentController extends Controller
             Helper::pr($postData,0);die;
             $consignment_id     = $postData['consignment_id'];
             $process_flow_id    = $postData['process_flow_id'];
+            $updated_on         = $postData['updated_on'];
             $input_value        = $postData['input_value'];
             
             $delivery_status    = ((array_key_exists("delivery_status",$postData))?$postData['delivery_status']:'');
@@ -325,14 +326,16 @@ class ConsignmentController extends Controller
             if(!empty($process_flow_id)){
                 for($k=0;$k<count($process_flow_id);$k++){
                     if(isset($input_value[$process_flow_id[$k]])){
-                        $fields             = [
-                            'input_value'   => $input_value[$process_flow_id[$k]],
-                            'hbl_number'    => ((array_key_exists("hbl_number",$postData))?$postData['hbl_number']:''),
-                            'updated_on'    => date('Y-m-d H:i:s'),
-                            'updated_by'    => session('user_id'),
-                            'status'        => 1,
-                        ];
-                        ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->update($fields);
+                        if($updated_on[$k] == ''){
+                            $fields             = [
+                                'input_value'   => $input_value[$process_flow_id[$k]],
+                                'hbl_number'    => ((array_key_exists("hbl_number",$postData))?$postData['hbl_number']:''),
+                                'updated_on'    => date('Y-m-d H:i:s'),
+                                'updated_by'    => session('user_id'),
+                                'status'        => 1,
+                            ];
+                            ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->update($fields);
+                        }
                     }
                 }
                 Consignment::where('id', '=', $consignment_id)->update(['consignment_status' => 'Process']);

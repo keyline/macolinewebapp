@@ -105,7 +105,7 @@ $user_type = session('type');
                           <td>
                             <b><?=(($getProcessFlow)?$getProcessFlow->name:'')?></b>
                             <input type="hidden" name="process_flow_id[]" value="<?=$consignmentDetail->process_flow_id?>">
-                            <input type="text" name="updated_on[]" value="<?=$consignmentDetail->updated_on?>">
+                            <input type="hidden" name="updated_on[]" value="<?=$consignmentDetail->updated_on?>">
                           </td>
                           <!-- <td><?=date_format(date_create($consignmentDetail->booking_date), "M d, Y")?></td> -->
                           <td><?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?><br><?=(($consignmentDetail->updated_on != '')?date_format(date_create($consignmentDetail->updated_on), "M d, Y h:i A"):'')?></td>
