@@ -117,7 +117,7 @@ class ConsignmentController extends Controller
                         'pol'                               => $postData['pol'],
                         'pod'                               => $postData['pod'],
                         'booking_date'                      => date_format(date_create($postData['booking_date']), "Y-m-d"),
-                        'consignment_status'                => 'Create',
+                        'consignment_status'                => 'New',
                     ];
                     $consignment_id = Consignment::insertGetId($fields);
                     /* consignment process flow */
