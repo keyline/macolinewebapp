@@ -1,4 +1,5 @@
 <?php
+use App\Models\ProcessFlow;
 use App\Models\Consignment;
 use App\Models\ConsignmentDetail;
 use App\Models\Role;
@@ -10,6 +11,14 @@ $import_access          = (($getRole)?$getRole->import_access:0);
 $export_access          = (($getRole)?$getRole->export_access:0);
 $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
 ?>
+<style>
+.progress.consignment-list-progress {
+    height: 20px;
+}
+.progress.consignment-list-progress .progress-bar {
+    font-size: 12px;
+}
+</style>
 <div class="pagetitle">
   <h1><?=$page_header?></h1>
   <nav>
@@ -98,7 +107,74 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Completed'){?>
                               <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
+                            <?php }?><br><br>
+                            <?php
+                            $total_process_flow_count = ProcessFlow::where('shipment_type', '=', 'Import')->where('status', '=', 1)->count();
+                            $per_flow = (100 / ($total_process_flow_count + 1));
+                            $total_filled_process_flow_count = ConsignmentDetail::where('consignment_id', '=', $row->id)->where('status', '=', 1)->count();
+                            if($row->delivery_status){
+                              $progress_bar_percentage = 100;
+                            } else {
+                              $progress_bar_percentage = ($per_flow * $total_filled_process_flow_count);
+                            }
+                            ?>
+                            <div class="progress consignment-list-progress" style="max-width: 100%;">
+                              <?php if($progress_bar_percentage >= 0 && $progress_bar_percentage <= 25){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 26 && $progress_bar_percentage <= 50){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 51 && $progress_bar_percentage <= 75){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 76 && $progress_bar_percentage <= 98){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 99 && $progress_bar_percentage <= 100){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0b520b">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                            </div>
                           </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
@@ -171,7 +247,74 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Completed'){?>
                               <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
+                            <?php }?><br><br>
+                            <?php
+                            $total_process_flow_count = ProcessFlow::where('shipment_type', '=', 'Export')->where('type', '=', 'FCL')->where('status', '=', 1)->count();
+                            $per_flow = (100 / ($total_process_flow_count + 1));
+                            $total_filled_process_flow_count = ConsignmentDetail::where('consignment_id', '=', $row->id)->where('status', '=', 1)->count();
+                            if($row->delivery_status){
+                              $progress_bar_percentage = 100;
+                            } else {
+                              $progress_bar_percentage = ($per_flow * $total_filled_process_flow_count);
+                            }
+                            ?>
+                            <div class="progress consignment-list-progress" style="max-width: 100%;">
+                              <?php if($progress_bar_percentage >= 0 && $progress_bar_percentage <= 25){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 26 && $progress_bar_percentage <= 50){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 51 && $progress_bar_percentage <= 75){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 76 && $progress_bar_percentage <= 98){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 99 && $progress_bar_percentage <= 100){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0b520b">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                            </div>
                           </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
@@ -247,7 +390,74 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Completed'){?>
                               <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
+                            <?php }?><br><br>
+                            <?php
+                            $total_process_flow_count = ProcessFlow::where('shipment_type', '=', 'Export')->where('type', '=', 'LCL')->where('status', '=', 1)->count();
+                            $per_flow = (100 / ($total_process_flow_count + 1));
+                            $total_filled_process_flow_count = ConsignmentDetail::where('consignment_id', '=', $row->id)->where('status', '=', 1)->count();
+                            if($row->delivery_status){
+                              $progress_bar_percentage = 100;
+                            } else {
+                              $progress_bar_percentage = ($per_flow * $total_filled_process_flow_count);
+                            }
+                            ?>
+                            <div class="progress consignment-list-progress" style="max-width: 100%;">
+                              <?php if($progress_bar_percentage >= 0 && $progress_bar_percentage <= 25){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 26 && $progress_bar_percentage <= 50){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 51 && $progress_bar_percentage <= 75){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 76 && $progress_bar_percentage <= 98){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 99 && $progress_bar_percentage <= 100){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0b520b">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                            </div>
                           </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
@@ -323,7 +533,74 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                               <span class="badge bg-warning"><?=$row->consignment_status?></span>
                             <?php } elseif($row->consignment_status == 'Completed'){?>
                               <span class="badge bg-success"><?=$row->consignment_status?></span>
-                            <?php }?>
+                            <?php }?><br><br>
+                            <?php
+                            $total_process_flow_count = ProcessFlow::where('shipment_type', '=', 'Export')->where('type', '=', 'LCL CO LOAD')->where('status', '=', 1)->count();
+                            $per_flow = (100 / ($total_process_flow_count + 1));
+                            $total_filled_process_flow_count = ConsignmentDetail::where('consignment_id', '=', $row->id)->where('status', '=', 1)->count();
+                            if($row->delivery_status){
+                              $progress_bar_percentage = 100;
+                            } else {
+                              $progress_bar_percentage = ($per_flow * $total_filled_process_flow_count);
+                            }
+                            ?>
+                            <div class="progress consignment-list-progress" style="max-width: 100%;">
+                              <?php if($progress_bar_percentage >= 0 && $progress_bar_percentage <= 25){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 26 && $progress_bar_percentage <= 50){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 51 && $progress_bar_percentage <= 75){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 76 && $progress_bar_percentage <= 98){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                              <?php if($progress_bar_percentage >= 99 && $progress_bar_percentage <= 100){?>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
+                                  
+                                </div>
+                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0b520b">
+                                  <?=$progress_bar_percentage.'%';?>
+                                </div>
+                              <?php }?>
+                            </div>
                           </td>
                           <td><?=$row->customer_name?></td>
                           <td><?=date_format(date_create($row->booking_date), "M d, Y")?></td>
