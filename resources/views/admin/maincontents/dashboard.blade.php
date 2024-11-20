@@ -173,7 +173,7 @@ $controllerRoute = 'consignment';
                             <div class="progress consignment-list-progress" style="max-width: 100%;">
                               <?php if($progress_bar_percentage >= 0 && $progress_bar_percentage <= 25){?>
                                 <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
-                                  <?=$progress_bar_percentage.'%';?>
+                                  <?=round($progress_bar_percentage).'%';?>
                                 </div>
                               <?php }?>
                               <?php if($progress_bar_percentage >= 26 && $progress_bar_percentage <= 50){?>
@@ -181,7 +181,7 @@ $controllerRoute = 'consignment';
                                   
                                 </div>
                                 <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
-                                  <?=$progress_bar_percentage.'%';?>
+                                  <?=round($progress_bar_percentage).'%';?>
                                 </div>
                               <?php }?>
                               <?php if($progress_bar_percentage >= 51 && $progress_bar_percentage <= 75){?>
@@ -192,7 +192,7 @@ $controllerRoute = 'consignment';
                                   
                                 </div>
                                 <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #329d32">
-                                  <?=$progress_bar_percentage.'%';?>
+                                  <?=round($progress_bar_percentage).'%';?>?>
                                 </div>
                               <?php }?>
                               <?php if($progress_bar_percentage >= 76 && $progress_bar_percentage <= 98){?>
@@ -206,7 +206,7 @@ $controllerRoute = 'consignment';
                                   
                                 </div>
                                 <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
-                                  <?=$progress_bar_percentage.'%';?>
+                                  <?=round($progress_bar_percentage).'%';?>
                                 </div>
                               <?php }?>
                               <?php if($progress_bar_percentage >= 99 && $progress_bar_percentage <= 100){?>
@@ -223,7 +223,7 @@ $controllerRoute = 'consignment';
                                   
                                 </div>
                                 <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0b520b">
-                                  <?=$progress_bar_percentage.'%';?>
+                                  <?=round($progress_bar_percentage).'%';?>
                                 </div>
                               <?php }?>
                             </div>
