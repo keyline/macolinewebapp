@@ -102,6 +102,14 @@ $user_type = session('type');
           </div> -->
         <!-- End page -->
         <?php if($user_type == 'ma'){?>
+          <!-- Settings -->
+            <div class="nav-item">
+              <a class="nav-link <?=(($pageSegment == 'settings')?'active':'')?>" href="<?=url('admin/settings')?>" data-placement="left">
+                <i class="fa fa-cogs nav-icon"></i>
+                <span class="nav-link-title">Settings</span>
+              </a>
+            </div>
+          <!-- End Settings -->
           <!-- email logs -->
             <div class="nav-item">
               <a class="nav-link <?=(($pageSegment == 'email-logs')?'active':'')?>" href="<?=url('admin/email-logs')?>" data-placement="left">
@@ -118,6 +126,14 @@ $user_type = session('type');
               </a>
             </div>
           <!-- End login logs -->
+          <!-- signout -->
+            <div class="nav-item">
+              <a class="nav-link <?=(($pageSegment == 'logout')?'active':'')?>" href="<?=url('admin/logout')?>" data-placement="left">
+                <i class="fa fa-sign-out nav-icon"></i>
+                <span class="nav-link-title">Sign Out</span>
+              </a>
+            </div>
+          <!-- End signout -->
         <?php }?>
       </div>
     </div>
