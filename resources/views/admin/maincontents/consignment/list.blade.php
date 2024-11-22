@@ -170,7 +170,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                                 <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
                                   
                                 </div> -->
-                                <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0b520b">
+                                <div class="progress-bar progress-bar-stripped" style="width: 100%; background-color: #0b520b">
                                   <?=round($progress_bar_percentage).'%';?>
                                 </div>
                               <?php }?>
