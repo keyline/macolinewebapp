@@ -143,7 +143,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                                   <?=round($progress_bar_percentage).'%';?>
                                 </div>
                               <?php }?>
-                              <?php if($progress_bar_percentage >= 76 && $progress_bar_percentage <= 98){?>
+                              <?php if($progress_bar_percentage >= 76 && $progress_bar_percentage <= 99){?>
                                 <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
                                   
                                 </div>
@@ -157,8 +157,8 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                                   <?=round($progress_bar_percentage).'%';?>
                                 </div>
                               <?php }?>
-                              <?php if($progress_bar_percentage >= 99 && $progress_bar_percentage <= 100){?>
-                                <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
+                              <?php if($progress_bar_percentage == 100){?>
+                                <!-- <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #a0e5a0">
                                   
                                 </div>
                                 <div class="progress-bar progress-bar-stripped" style="width: 80%; background-color: #5ecf5e">
@@ -169,7 +169,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                                 </div>
                                 <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0d6a0d">
                                   
-                                </div>
+                                </div> -->
                                 <div class="progress-bar progress-bar-stripped" style="width: 70%; background-color: #0b520b">
                                   <?=round($progress_bar_percentage).'%';?>
                                 </div>
