@@ -71,7 +71,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                   $showHide2  = 0;
                   $showHide3  = 0;
                   $showHide4  = 0;
-                } else {
+                } elseif($import_access == 0 || $import_access == 1){
                   if(in_array("1", $export_access)){
                     $className1 = '';
                     $className2 = 'show active';
@@ -258,7 +258,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                   $showHide2  = 0;
                   $showHide3  = 0;
                   $showHide4  = 0;
-                } else {
+                } elseif($import_access == 0 || $import_access == 1){
                   if(in_array("1", $export_access)){
                     $className1 = '';
                     $className2 = 'show active';
