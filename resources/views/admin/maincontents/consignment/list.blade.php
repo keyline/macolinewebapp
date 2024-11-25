@@ -207,7 +207,13 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                           <td>
                             <?php
                             $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 1)->first();
+                            $getConsignmentDetails2 = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 10)->first();
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                            if($getConsignmentDetails2){
+                              if($getConsignmentDetails2->input_value != ''){
+                                echo (($getConsignmentDetails2)?"(".$getConsignmentDetails2->input_value.")":'');
+                              }
+                            }
                             ?><br>
                             <?php
                             $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 2)->first();
@@ -376,7 +382,13 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             } elseif($row->type == 'LCL CO LOAD'){
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
                             }
+                            $getConsignmentDetails2 = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 39)->first();
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                            if($getConsignmentDetails2){
+                              if($getConsignmentDetails2->input_value != ''){
+                                echo (($getConsignmentDetails2)?"(".$getConsignmentDetails2->input_value.")":'');
+                              }
+                            }
                             ?><br>
                             <?php
                             if($row->type == 'FCL'){
@@ -519,7 +531,13 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             } elseif($row->type == 'LCL CO LOAD'){
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
                             }
+                            $getConsignmentDetails2 = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 41)->first();
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                            if($getConsignmentDetails2){
+                              if($getConsignmentDetails2->input_value != ''){
+                                echo (($getConsignmentDetails2)?"(".$getConsignmentDetails2->input_value.")":'');
+                              }
+                            }
                             ?><br>
                             <?php
                             if($row->type == 'FCL'){
@@ -662,7 +680,13 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                             } elseif($row->type == 'LCL CO LOAD'){
                               $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 34)->first();
                             }
+                            $getConsignmentDetails2 = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 43)->first();
                             echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                            if($getConsignmentDetails2){
+                              if($getConsignmentDetails2->input_value != ''){
+                                echo (($getConsignmentDetails2)?"(".$getConsignmentDetails2->input_value.")":'');
+                              }
+                            }
                             ?><br>
                             <?php
                             if($row->type == 'FCL'){
