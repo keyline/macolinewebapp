@@ -63,8 +63,6 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
               </li>
               <?php if(!empty($export_access)){?>
                 <?php
-                echo $import_access;
-                print_r($export_access);
                 if(in_array("1", $export_access)){
                   $className1 = '';
                   $className2 = 'show active';
@@ -241,8 +239,6 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
               <?php }?>
               <?php if($export_access){?>
                 <?php
-                echo $import_access;
-                print_r($export_access);
                 if(in_array("1", $export_access)){
                   $className1 = '';
                   $className2 = 'show active';
