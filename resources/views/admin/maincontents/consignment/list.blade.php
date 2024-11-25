@@ -79,25 +79,25 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                     $className4 = '';
                     $showHide1  = 0;
                     $showHide2  = 1;
-                    $showHide3  = 0;
-                    $showHide4  = 0;
+                    $showHide3  = ((in_array("2", $export_access))?1:0);
+                    $showHide4  = ((in_array("3", $export_access))?1:0);
                   } elseif(in_array("2", $export_access)){
                     $className1 = '';
                     $className2 = '';
                     $className3 = 'show active';
                     $className4 = '';
                     $showHide1  = 0;
-                    $showHide2  = 0;
+                    $showHide2  = ((in_array("1", $export_access))?1:0);
                     $showHide3  = 1;
-                    $showHide4  = 0;
+                    $showHide4  = ((in_array("3", $export_access))?1:0);
                   } elseif(in_array("3", $export_access)){
                     $className1 = '';
                     $className2 = '';
                     $className3 = '';
                     $className4 = 'show active';
                     $showHide1  = 0;
-                    $showHide2  = 0;
-                    $showHide3  = 0;
+                    $showHide2  = ((in_array("1", $export_access))?1:0);
+                    $showHide3  = ((in_array("2", $export_access))?1:0);
                     $showHide4  = 1;
                   }
                 }
@@ -266,25 +266,25 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                     $className4 = '';
                     $showHide1  = 0;
                     $showHide2  = 1;
-                    $showHide3  = 0;
-                    $showHide4  = 0;
+                    $showHide3  = ((in_array("2", $export_access))?1:0);
+                    $showHide4  = ((in_array("3", $export_access))?1:0);
                   } elseif(in_array("2", $export_access)){
                     $className1 = '';
                     $className2 = '';
                     $className3 = 'show active';
                     $className4 = '';
                     $showHide1  = 0;
-                    $showHide2  = 0;
+                    $showHide2  = ((in_array("1", $export_access))?1:0);
                     $showHide3  = 1;
-                    $showHide4  = 0;
+                    $showHide4  = ((in_array("3", $export_access))?1:0);
                   } elseif(in_array("3", $export_access)){
                     $className1 = '';
                     $className2 = '';
                     $className3 = '';
                     $className4 = 'show active';
                     $showHide1  = 0;
-                    $showHide2  = 0;
-                    $showHide3  = 0;
+                    $showHide2  = ((in_array("1", $export_access))?1:0);
+                    $showHide3  = ((in_array("2", $export_access))?1:0);
                     $showHide4  = 1;
                   }
                 }
