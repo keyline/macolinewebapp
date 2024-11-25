@@ -92,13 +92,13 @@ class RoleController extends Controller
                         $export_access = [];
                     } else {
                         $import_access = 0;
-                        $export_access = json_encode($postData['type']);
+                        $export_access = $postData['type'];
                     }
                     $fields = [
                         'name'                    => $postData['name'],
                         'module_id'               => json_encode($postData['module_id']),
                         'import_access'           => $import_access,
-                        'export_access'           => $export_access,
+                        'export_access'           => json_encode($export_access),
                         'add_consignment_access'  => $postData['add_consignment_access'],
                     ];
                     Helper::pr($fields);
