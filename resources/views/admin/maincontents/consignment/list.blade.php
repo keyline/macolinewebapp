@@ -8,7 +8,7 @@ $user_type = session('type');
 $controllerRoute        = $module['controller_route'];
 $getRole                = Role::where('id', '=', $admin->role_id)->first();
 $import_access          = (($getRole)?$getRole->import_access:0);
-$export_access          = (($getRole)?$getRole->export_access:0);
+$export_access          = (($getRole->export_access != '')?json_decode($getRole->export_access):[]);
 $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
 ?>
 <style>
@@ -60,12 +60,18 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                   <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tab1">Import [<?=count($rows1)?>]</button>
                 <?php }?>
               </li>
-              <?php if($export_access){?>
+              <?php if(!empty($export_access)){?>
                 <?php
-                if($export_access == 1 && $import_access == 1){
+                if(!empty($export_access) && $import_access == 1){
                   $className = '';
-                } elseif($export_access == 1 && $import_access == 0){
-                  $className = 'show active';
+                } elseif($import_access == 0){
+                  if(in_array("1", $export_access)){
+                    $className = 'show active';
+                  } elseif(in_array("2", $export_access)){
+                    $className = 'show active';
+                  } elseif(in_array("3", $export_access)){
+                    $className = 'show active';
+                  }
                 }
                 ?>
                 <li class="nav-item">
@@ -215,10 +221,16 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
               <?php }?>
               <?php if($export_access){?>
                 <?php
-                if($export_access == 1 && $import_access == 1){
+                if(!empty($export_access) && $import_access == 1){
                   $className = '';
-                } elseif($export_access == 1 && $import_access == 0){
-                  $className = 'show active';
+                } elseif($import_access == 0){
+                  if(in_array("1", $export_access)){
+                    $className = 'show active';
+                  } elseif(in_array("2", $export_access)){
+                    $className = 'show active';
+                  } elseif(in_array("3", $export_access)){
+                    $className = 'show active';
+                  }
                 }
                 ?>
                 <div class="tab-pane fade <?=$className?> profile-overview" id="tab2">
@@ -364,7 +376,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                     </tbody>
                   </table>
                 </div>
-                <div class="tab-pane fade profile-overview" id="tab3">
+                <div class="tab-pane fade <?=$className?> profile-overview" id="tab3">
                   <table id="simpletable" class="table table-striped table-bordered nowrap">
                     <thead>
                       <tr>
@@ -507,7 +519,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                     </tbody>
                   </table>
                 </div>
-                <div class="tab-pane fade profile-overview" id="tab4">
+                <div class="tab-pane fade <?=$className?> profile-overview" id="tab4">
                   <table id="simpletable" class="table table-striped table-bordered nowrap">
                     <thead>
                       <tr>

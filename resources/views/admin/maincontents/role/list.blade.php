@@ -72,7 +72,6 @@ $controllerRoute = $module['controller_route'];
                         } else {
                           $shipmentType = 'Export';
                           if(in_array("1", json_decode($row->export_access))){
-                            
                             $type .= 'FCL ';
                           } elseif(in_array("2", json_decode($row->export_access))){
                             $type .= 'LCL ';
