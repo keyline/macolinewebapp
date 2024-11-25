@@ -66,11 +66,11 @@ $controllerRoute                = $module['controller_route'];
             <div class="row mb-3" id="type-row" style="display: none;">
               <label for="type" class="col-md-2 col-lg-2 col-form-label">Type</label>
               <div class="col-md-10 col-lg-10">
-                  <input type="checkbox" id="type1" name="type[]" value="FCL" <?=((in_array("1", $export_access))?'selected':'')?>>
+                  <input type="checkbox" id="type1" name="type[]" value="1" <?=((in_array("1", $export_access))?'selected':'')?>>
                   <label for="type1">FCL</label>
-                  <input type="checkbox" id="type2" name="type[]" value="LCL" <?=((in_array("2", $export_access))?'selected':'')?>>
+                  <input type="checkbox" id="type2" name="type[]" value="2" <?=((in_array("2", $export_access))?'selected':'')?>>
                   <label for="type2">LCL</label>
-                  <input type="checkbox" id="type3" name="type[]" value="LCL CO LOAD" <?=((in_array("3", $export_access))?'selected':'')?>>
+                  <input type="checkbox" id="type3" name="type[]" value="3" <?=((in_array("3", $export_access))?'selected':'')?>>
                   <label for="type3">LCL CO LOAD</label>
               </div>
             </div>
