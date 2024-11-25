@@ -63,48 +63,35 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
               </li>
               <?php if(!empty($export_access)){?>
                 <?php
-                if(!empty($export_access) && $import_access == 1){
-                  echo $import_access;
-                  print_r($export_access);
+                echo $import_access;
+                print_r($export_access);
+                if(in_array("1", $export_access)){
                   $className1 = '';
-                  $className2 = '';
+                  $className2 = 'show active';
                   $className3 = '';
                   $className4 = '';
                   $showHide1  = 0;
-                  $showHide2  = 0;
-                  $showHide3  = 0;
-                  $showHide4  = 0;
-                } elseif($import_access == 0 || $import_access == 1){
-                  echo $import_access;
-                  print_r($export_access);
-                  if(in_array("1", $export_access)){
-                    $className1 = '';
-                    $className2 = 'show active';
-                    $className3 = '';
-                    $className4 = '';
-                    $showHide1  = 0;
-                    $showHide2  = 1;
-                    $showHide3  = ((in_array("2", $export_access))?1:0);
-                    $showHide4  = ((in_array("3", $export_access))?1:0);
-                  } elseif(in_array("2", $export_access)){
-                    $className1 = '';
-                    $className2 = '';
-                    $className3 = 'show active';
-                    $className4 = '';
-                    $showHide1  = 0;
-                    $showHide2  = ((in_array("1", $export_access))?1:0);
-                    $showHide3  = 1;
-                    $showHide4  = ((in_array("3", $export_access))?1:0);
-                  } elseif(in_array("3", $export_access)){
-                    $className1 = '';
-                    $className2 = '';
-                    $className3 = '';
-                    $className4 = 'show active';
-                    $showHide1  = 0;
-                    $showHide2  = ((in_array("1", $export_access))?1:0);
-                    $showHide3  = ((in_array("2", $export_access))?1:0);
-                    $showHide4  = 1;
-                  }
+                  $showHide2  = 1;
+                  $showHide3  = ((in_array("2", $export_access))?1:0);
+                  $showHide4  = ((in_array("3", $export_access))?1:0);
+                } elseif(in_array("2", $export_access)){
+                  $className1 = '';
+                  $className2 = '';
+                  $className3 = 'show active';
+                  $className4 = '';
+                  $showHide1  = 0;
+                  $showHide2  = ((in_array("1", $export_access))?1:0);
+                  $showHide3  = 1;
+                  $showHide4  = ((in_array("3", $export_access))?1:0);
+                } elseif(in_array("3", $export_access)){
+                  $className1 = '';
+                  $className2 = '';
+                  $className3 = '';
+                  $className4 = 'show active';
+                  $showHide1  = 0;
+                  $showHide2  = ((in_array("1", $export_access))?1:0);
+                  $showHide3  = ((in_array("2", $export_access))?1:0);
+                  $showHide4  = 1;
                 }
                 ?>
                 <li class="nav-item" style="<?=(($showHide2)?'':'display:none;')?>">
@@ -254,44 +241,35 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
               <?php }?>
               <?php if($export_access){?>
                 <?php
-                if(!empty($export_access) && $import_access == 1){
+                echo $import_access;
+                print_r($export_access);
+                if(in_array("1", $export_access)){
                   $className1 = '';
-                  $className2 = '';
+                  $className2 = 'show active';
                   $className3 = '';
                   $className4 = '';
                   $showHide1  = 0;
-                  $showHide2  = 0;
-                  $showHide3  = 0;
-                  $showHide4  = 0;
-                } elseif($import_access == 0 || $import_access == 1){
-                  if(in_array("1", $export_access)){
-                    $className1 = '';
-                    $className2 = 'show active';
-                    $className3 = '';
-                    $className4 = '';
-                    $showHide1  = 0;
-                    $showHide2  = 1;
-                    $showHide3  = ((in_array("2", $export_access))?1:0);
-                    $showHide4  = ((in_array("3", $export_access))?1:0);
-                  } elseif(in_array("2", $export_access)){
-                    $className1 = '';
-                    $className2 = '';
-                    $className3 = 'show active';
-                    $className4 = '';
-                    $showHide1  = 0;
-                    $showHide2  = ((in_array("1", $export_access))?1:0);
-                    $showHide3  = 1;
-                    $showHide4  = ((in_array("3", $export_access))?1:0);
-                  } elseif(in_array("3", $export_access)){
-                    $className1 = '';
-                    $className2 = '';
-                    $className3 = '';
-                    $className4 = 'show active';
-                    $showHide1  = 0;
-                    $showHide2  = ((in_array("1", $export_access))?1:0);
-                    $showHide3  = ((in_array("2", $export_access))?1:0);
-                    $showHide4  = 1;
-                  }
+                  $showHide2  = 1;
+                  $showHide3  = ((in_array("2", $export_access))?1:0);
+                  $showHide4  = ((in_array("3", $export_access))?1:0);
+                } elseif(in_array("2", $export_access)){
+                  $className1 = '';
+                  $className2 = '';
+                  $className3 = 'show active';
+                  $className4 = '';
+                  $showHide1  = 0;
+                  $showHide2  = ((in_array("1", $export_access))?1:0);
+                  $showHide3  = 1;
+                  $showHide4  = ((in_array("3", $export_access))?1:0);
+                } elseif(in_array("3", $export_access)){
+                  $className1 = '';
+                  $className2 = '';
+                  $className3 = '';
+                  $className4 = 'show active';
+                  $showHide1  = 0;
+                  $showHide2  = ((in_array("1", $export_access))?1:0);
+                  $showHide3  = ((in_array("2", $export_access))?1:0);
+                  $showHide4  = 1;
                 }
                 ?>
                 <div class="tab-pane fade <?=$className2?> profile-overview" id="tab2" style="<?=(($showHide2)?'':'display:none;')?>">
