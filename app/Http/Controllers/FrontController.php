@@ -39,7 +39,7 @@ class FrontController extends Controller
                                                     ->join('pods', 'consignments.pod', '=', 'pods.id')
                                                     ->join('process_flows', 'consignment_details.process_flow_id', '=', 'process_flows.id')
                                                     ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name', 'process_flows.name as process_flow_name')
-                                                    ->where('consignment_details.status', '=', 1)
+                                                    ->where('consignment_details.status', '=', 0)
                                                     ->where('consignment_details.input_value', '=', '')
                                                     ->where('consignment_details.notification_date', '=', $current_date)
                                                     ->orderBy('consignments.id', 'DESC')
@@ -54,7 +54,7 @@ class FrontController extends Controller
                     'notifications'     => $notifications,
                 ];
                 $message                     = view('email-templates.notification-template',$maildata);
-                // echo $message;die;
+                echo $message;die;
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
                 $this->sendMail($generalSetting->system_email, $subject, $message);
             /* email sent */
