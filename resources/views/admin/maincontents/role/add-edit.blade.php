@@ -77,9 +77,9 @@ $controllerRoute                = $module['controller_route'];
             <div class="row mb-3">
               <label for="add_consignment_access" class="col-md-2 col-lg-2 col-form-label">Add Consignment Access</label>
               <div class="col-md-10 col-lg-10">
-                  <input type="radio" id="add_consignment_access1" name="add_consignment_access" value="1" <?=(($add_consignment_access == 1)?'selected':'')?>>
+                  <input type="radio" id="add_consignment_access1" name="add_consignment_access" value="1" <?=(($add_consignment_access == 1)?'selected':'')?> required>
                   <label for="add_consignment_access1">YES</label>
-                  <input type="radio" id="add_consignment_access2" name="add_consignment_access" value="0" <?=(($add_consignment_access == 0)?'selected':'')?>>
+                  <input type="radio" id="add_consignment_access2" name="add_consignment_access" value="0" <?=(($add_consignment_access == 0)?'selected':'')?> required>
                   <label for="add_consignment_access2">NO</label>
               </div>
             </div>
