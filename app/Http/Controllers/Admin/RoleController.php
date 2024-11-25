@@ -101,7 +101,7 @@ class RoleController extends Controller
                         'export_access'           => json_encode($export_access),
                         'add_consignment_access'  => $postData['add_consignment_access'],
                     ];
-                    Helper::pr($fields);
+                    // Helper::pr($fields);
                     Role::where($this->data['primary_key'], '=', $id)->update($fields);
                     return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Updated Successfully !!!');
                 } else {
