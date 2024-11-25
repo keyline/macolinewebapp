@@ -29,7 +29,7 @@ class RoleController extends Controller
             $data['module']                 = $this->data;
             $title                          = $this->data['title'].' List';
             $page_name                      = 'role.list';
-            $data['rows']                   = Role::where('status', '!=', 3)->orderBy('id', 'DESC')->get();
+            $data['rows']                   = Role::where('status', '!=', 3)->where('id', '!=', 1)->orderBy('id', 'DESC')->get();
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }
     /* list */
