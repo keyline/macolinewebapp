@@ -42,10 +42,22 @@ class RoleController extends Controller
                     'name'                      => 'required',
                 ];
                 if($this->validate($request, $rules)){
+                    $shipment_type = $postData['shipment_type'];
+                    if($shipment_type == 'Import'){
+                        $import_access = 1;
+                        $export_access = [];
+                    } else {
+                        $import_access = 0;
+                        $export_access = json_encode($postData['type']);
+                    }
                     $fields = [
                         'name'                    => $postData['name'],
                         'module_id'               => json_encode($postData['module_id']),
+                        'import_access'           => $import_access,
+                        'export_access'           => $export_access,
+                        'add_consignment_access'  => $postData['add_consignment_access'],
                     ];
+                    Helper::pr($fields);
                     Role::insert($fields);
                     return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Inserted Successfully !!!');
                 } else {
@@ -74,11 +86,22 @@ class RoleController extends Controller
                     'name'                      => 'required',
                 ];
                 if($this->validate($request, $rules)){
+                    $shipment_type = $postData['shipment_type'];
+                    if($shipment_type == 'Import'){
+                        $import_access = 1;
+                        $export_access = [];
+                    } else {
+                        $import_access = 0;
+                        $export_access = json_encode($postData['type']);
+                    }
                     $fields = [
                         'name'                    => $postData['name'],
                         'module_id'               => json_encode($postData['module_id']),
+                        'import_access'           => $import_access,
+                        'export_access'           => $export_access,
+                        'add_consignment_access'  => $postData['add_consignment_access'],
                     ];
-                    // Helper::pr($fields);
+                    Helper::pr($fields);
                     Role::where($this->data['primary_key'], '=', $id)->update($fields);
                     return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Updated Successfully !!!');
                 } else {

@@ -30,11 +30,17 @@ $controllerRoute                = $module['controller_route'];
     </div>
     <?php
     if($row){
-      $name         = $row->name;
-      $module_id    = (($row->module_id != '')?json_decode($row->module_id):[]);
+      $name                           = $row->name;
+      $module_id                      = (($row->module_id != '')?json_decode($row->module_id):[]);
+      $import_access                  = $row->import_access;
+      $export_access                  = (($row->export_access != '')?json_decode($row->export_access):[]);
+      $add_consignment_access         = $row->add_consignment_access;
     } else {
-      $name         = '';
-      $module_id    = [];
+      $name                           = '';
+      $module_id                      = [];
+      $import_access                  = 0;
+      $export_access                  = [];
+      $add_consignment_access         = 0;
     }
     ?>
     <div class="col-xl-12">
@@ -51,21 +57,30 @@ $controllerRoute                = $module['controller_route'];
             <div class="row mb-3">
               <label for="shipment_type" class="col-md-2 col-lg-2 col-form-label">Shipment Type</label>
               <div class="col-md-10 col-lg-10">
-                  <input type="radio" id="shipment_type1" name="shipment_type" value="Export">
+                  <input type="radio" id="shipment_type1" name="shipment_type" value="Export" <?=((!empty($export_access))?'selected':'')?>>
                   <label for="shipment_type1">Export</label>
-                  <input type="radio" id="shipment_type2" name="shipment_type" value="Import">
+                  <input type="radio" id="shipment_type2" name="shipment_type" value="Import" <?=(($import_access)?'selected':'')?>>
                   <label for="shipment_type2">Import</label>
               </div>
             </div>
             <div class="row mb-3" id="type-row" style="display: none;">
               <label for="type" class="col-md-2 col-lg-2 col-form-label">Type</label>
               <div class="col-md-10 col-lg-10">
-                  <input type="checkbox" id="type1" name="type" value="FCL">
+                  <input type="checkbox" id="type1" name="type[]" value="FCL" <?=((in_array("1", $export_access))?'selected':'')?>>
                   <label for="type1">FCL</label>
-                  <input type="checkbox" id="type2" name="type" value="LCL">
+                  <input type="checkbox" id="type2" name="type[]" value="LCL" <?=((in_array("2", $export_access))?'selected':'')?>>
                   <label for="type2">LCL</label>
-                  <input type="checkbox" id="type3" name="type" value="LCL CO LOAD">
+                  <input type="checkbox" id="type3" name="type[]" value="LCL CO LOAD" <?=((in_array("3", $export_access))?'selected':'')?>>
                   <label for="type3">LCL CO LOAD</label>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="add_consignment_access" class="col-md-2 col-lg-2 col-form-label">Add Consignment Access</label>
+              <div class="col-md-10 col-lg-10">
+                  <input type="radio" id="add_consignment_access1" name="add_consignment_access" value="1" <?=(($add_consignment_access == 1)?'selected':'')?>>
+                  <label for="add_consignment_access1">YES</label>
+                  <input type="radio" id="add_consignment_access2" name="add_consignment_access" value="0" <?=(($add_consignment_access == 0)?'selected':'')?>>
+                  <label for="add_consignment_access2">NO</label>
               </div>
             </div>
             <div class="row mb-5">
@@ -92,10 +107,17 @@ $controllerRoute                = $module['controller_route'];
     </div>
   </div>
 </section>
+<?php
+  if($import_access){
+    $shipmentType = 'Import';
+  } else {
+    $shipmentType = 'Export';
+  }
+?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
   $(function(){
-    const selectedValue = '';
+    const selectedValue = '<?=$shipmentType?>';
     const selectedValue2 = '';
     if (selectedValue === "Export") {
       $('#type-row').show();
