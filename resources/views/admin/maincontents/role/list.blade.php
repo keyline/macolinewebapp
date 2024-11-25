@@ -41,6 +41,7 @@ $controllerRoute = $module['controller_route'];
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
                   <th scope="col">Modules</th>
+                  <th scope="col">Type</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -56,11 +57,29 @@ $controllerRoute = $module['controller_route'];
                         if(!empty($module_id)){ for($m=0;$m<count($module_id);$m++){
                           $module = Module::where('id', '=', $module_id[$m])->first();
                         ?>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                           <span class="badge bg-primary"><i class="bi bi-collection me-1"></i> <?=(($module)?$module->name:'')?></span>
                         </div>
                         <?php } }?>
                       </div>
+                    </td>
+                    <td>
+                      <?php
+                        if($row->import_access){
+                          $shipmentType = 'Import';
+                          $type = '';
+                        } else {
+                          $shipmentType = 'Export';
+                          if(in_array("1", json_decode($row->export_access))){
+                            $type = 'FCL';
+                          } elseif(in_array("2", json_decode($row->export_access))){
+                            $type = 'LCL';
+                          } elseif(in_array("3", json_decode($row->export_access))){
+                            $type = 'LCL CO LOAD';
+                          }
+                        }
+                        echo $shipmentType . (($type != '')?'('.$type.')':'');
+                      ?>
                     </td>
                     <td>
                       <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
