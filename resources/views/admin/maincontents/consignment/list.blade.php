@@ -7,9 +7,10 @@ use App\Helpers\Helper;
 $user_type = session('type');
 $controllerRoute        = $module['controller_route'];
 $getRole                = Role::where('id', '=', $admin->role_id)->first();
-$import_access          = (($getRole)?$getRole->import_access:0);
+echo $import_access          = (($getRole)?$getRole->import_access:0);
 $export_access          = (($getRole->export_access != '')?json_decode($getRole->export_access):[]);
 $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
+print_r($export_access);
 ?>
 <style>
 .progress.consignment-list-progress {
