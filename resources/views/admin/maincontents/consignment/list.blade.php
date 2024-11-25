@@ -63,25 +63,37 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
               <?php if(!empty($export_access)){?>
                 <?php
                 if(!empty($export_access) && $import_access == 1){
-                  $className = '';
+                  $className1 = '';
+                  $className2 = '';
+                  $className3 = '';
+                  $className4 = '';
                 } elseif($import_access == 0){
                   if(in_array("1", $export_access)){
-                    $className = 'show active';
+                    $className1 = '';
+                    $className2 = 'show active';
+                    $className3 = '';
+                    $className4 = '';
                   } elseif(in_array("2", $export_access)){
-                    $className = 'show active';
+                    $className1 = '';
+                    $className2 = '';
+                    $className3 = 'show active';
+                    $className4 = '';
                   } elseif(in_array("3", $export_access)){
-                    $className = 'show active';
+                    $className1 = '';
+                    $className2 = '';
+                    $className3 = '';
+                    $className4 = 'show active';
                   }
                 }
                 ?>
                 <li class="nav-item">
-                  <button class="nav-link <?=$className?>" data-bs-toggle="tab" data-bs-target="#tab2">Export (FCL) [<?=count($rows2)?>]</button>
+                  <button class="nav-link <?=$className2?>" data-bs-toggle="tab" data-bs-target="#tab2">Export (FCL) [<?=count($rows2)?>]</button>
                 </li>
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab3">Export (LCL) [<?=count($rows3)?>]</button>
+                  <button class="nav-link <?=$className3?>" data-bs-toggle="tab" data-bs-target="#tab3">Export (LCL) [<?=count($rows3)?>]</button>
                 </li>
                 <li class="nav-item">
-                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tab4">Export (LCL CO LOAD) [<?=count($rows4)?>]</button>
+                  <button class="nav-link <?=$className4?>" data-bs-toggle="tab" data-bs-target="#tab4">Export (LCL CO LOAD) [<?=count($rows4)?>]</button>
                 </li>
               <?php }?>
             </ul>
@@ -222,18 +234,30 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
               <?php if($export_access){?>
                 <?php
                 if(!empty($export_access) && $import_access == 1){
-                  $className = '';
+                  $className1 = '';
+                  $className2 = '';
+                  $className3 = '';
+                  $className4 = '';
                 } elseif($import_access == 0){
                   if(in_array("1", $export_access)){
-                    $className = 'show active';
+                    $className1 = '';
+                    $className2 = 'show active';
+                    $className3 = '';
+                    $className4 = '';
                   } elseif(in_array("2", $export_access)){
-                    $className = 'show active';
+                    $className1 = '';
+                    $className2 = '';
+                    $className3 = 'show active';
+                    $className4 = '';
                   } elseif(in_array("3", $export_access)){
-                    $className = 'show active';
+                    $className1 = '';
+                    $className2 = '';
+                    $className3 = '';
+                    $className4 = 'show active';
                   }
                 }
                 ?>
-                <div class="tab-pane fade <?=$className?> profile-overview" id="tab2">
+                <div class="tab-pane fade <?=$className2?> profile-overview" id="tab2">
                   <table id="simpletable" class="table table-striped table-bordered nowrap">
                     <thead>
                       <tr>
@@ -376,7 +400,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                     </tbody>
                   </table>
                 </div>
-                <div class="tab-pane fade <?=$className?> profile-overview" id="tab3">
+                <div class="tab-pane fade <?=$className3?> profile-overview" id="tab3">
                   <table id="simpletable" class="table table-striped table-bordered nowrap">
                     <thead>
                       <tr>
@@ -519,7 +543,7 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                     </tbody>
                   </table>
                 </div>
-                <div class="tab-pane fade <?=$className?> profile-overview" id="tab4">
+                <div class="tab-pane fade <?=$className4?> profile-overview" id="tab4">
                   <table id="simpletable" class="table table-striped table-bordered nowrap">
                     <thead>
                       <tr>
