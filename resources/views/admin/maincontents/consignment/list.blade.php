@@ -7,10 +7,10 @@ use App\Helpers\Helper;
 $user_type = session('type');
 $controllerRoute        = $module['controller_route'];
 $getRole                = Role::where('id', '=', $admin->role_id)->first();
-echo $import_access          = (($getRole)?$getRole->import_access:0);
+$import_access          = (($getRole)?$getRole->import_access:0);
 $export_access          = (($getRole->export_access != '')?json_decode($getRole->export_access):[]);
 $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
-print_r($export_access);
+
 ?>
 <style>
 .progress.consignment-list-progress {
@@ -64,6 +64,8 @@ print_r($export_access);
               <?php if(!empty($export_access)){?>
                 <?php
                 if(!empty($export_access) && $import_access == 1){
+                  echo $import_access;
+                  print_r($export_access);
                   $className1 = '';
                   $className2 = '';
                   $className3 = '';
@@ -73,6 +75,8 @@ print_r($export_access);
                   $showHide3  = 0;
                   $showHide4  = 0;
                 } elseif($import_access == 0 || $import_access == 1){
+                  echo $import_access;
+                  print_r($export_access);
                   if(in_array("1", $export_access)){
                     $className1 = '';
                     $className2 = 'show active';
