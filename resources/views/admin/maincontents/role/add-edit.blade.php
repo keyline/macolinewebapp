@@ -48,6 +48,26 @@ $controllerRoute                = $module['controller_route'];
                 <input type="text" name="name" class="form-control" id="name" value="<?=$name?>" required>
               </div>
             </div>
+            <div class="row mb-3">
+              <label for="shipment_type" class="col-md-2 col-lg-2 col-form-label">Shipment Type</label>
+              <div class="col-md-10 col-lg-10">
+                  <input type="radio" id="shipment_type1" name="shipment_type" value="Export">
+                  <label for="shipment_type1">Export</label>
+                  <input type="radio" id="shipment_type2" name="shipment_type" value="Import">
+                  <label for="shipment_type2">Import</label>
+              </div>
+            </div>
+            <div class="row mb-3" id="type-row" style="display: none;">
+              <label for="type" class="col-md-2 col-lg-2 col-form-label">Type</label>
+              <div class="col-md-10 col-lg-10">
+                  <input type="checkbox" id="type1" name="type" value="FCL">
+                  <label for="type1">FCL</label>
+                  <input type="checkbox" id="type2" name="type" value="LCL">
+                  <label for="type2">LCL</label>
+                  <input type="checkbox" id="type3" name="type" value="LCL CO LOAD">
+                  <label for="type3">LCL CO LOAD</label>
+              </div>
+            </div>
             <div class="row mb-5">
               <label class="col-md-2 col-lg-2 col-form-label">Modules</label>
               <div class="col-md-10 col-lg-10">
@@ -72,3 +92,28 @@ $controllerRoute                = $module['controller_route'];
     </div>
   </div>
 </section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(function(){
+    const selectedValue = '';
+    const selectedValue2 = '';
+    if (selectedValue === "Export") {
+      $('#type-row').show();
+      $('input[name="type"]').attr('required', true);
+    } else {
+      $('#type-row').hide();
+      $('input[name="type"]').removeAttr('required');
+    }
+
+    $('input[name="shipment_type"]').on('change', function() {
+      const selectedValue = $('input[name="shipment_type"]:checked').val();
+      if (selectedValue === "Export") {
+        $('#type-row').show();
+        $('input[name="type"]').attr('required', true);
+      } else {
+        $('#type-row').hide();
+        $('input[name="type"]').removeAttr('required');
+      }
+    });
+  })
+</script>
