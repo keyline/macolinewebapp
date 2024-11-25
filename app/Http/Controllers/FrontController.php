@@ -54,7 +54,7 @@ class FrontController extends Controller
                     'notifications'     => $notifications,
                 ];
                 $message                     = view('email-templates.notification-template',$maildata);
-                echo $message;die;
+                // echo $message;die;
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
                 $this->sendMail($generalSetting->system_email, $subject, $message);
             /* email sent */
