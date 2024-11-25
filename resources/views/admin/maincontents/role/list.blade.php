@@ -65,17 +65,19 @@ $controllerRoute = $module['controller_route'];
                     </td>
                     <td>
                       <?php
+                        $type = '';
                         if($row->import_access){
                           $shipmentType = 'Import';
                           $type = '';
                         } else {
                           $shipmentType = 'Export';
                           if(in_array("1", json_decode($row->export_access))){
-                            $type = 'FCL';
+                            
+                            $type .= ''; = 'FCL ';
                           } elseif(in_array("2", json_decode($row->export_access))){
-                            $type = 'LCL';
+                            $type .= 'LCL ';
                           } elseif(in_array("3", json_decode($row->export_access))){
-                            $type = 'LCL CO LOAD';
+                            $type .= 'LCL CO LOAD ';
                           }
                         }
                         echo $shipmentType . (($type != '')?'('.$type.')':'');
