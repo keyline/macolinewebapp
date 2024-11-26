@@ -234,17 +234,18 @@ $controllerRoute = 'consignment';
                         <td><?=$row->pol_name?><br><?=$row->pod_name?></td>
                         <td>
                           <?php
-                          $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 1)->first();
-                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
-                          ?><br>
-                          <?php
-                          $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 2)->first();
-                          echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
-                          if($getConsignmentDetails2){
-                            if($getConsignmentDetails2->input_value != ''){
-                              echo (($getConsignmentDetails2)?"(".$getConsignmentDetails2->input_value.")":'');
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 1)->first();
+                            $getConsignmentDetails2 = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 10)->first();
+                            echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
+                            if($getConsignmentDetails2){
+                              if($getConsignmentDetails2->input_value != ''){
+                                echo (($getConsignmentDetails2)?"(".$getConsignmentDetails2->input_value.")":'');
+                              }
                             }
-                          }
+                            ?><br>
+                            <?php
+                            $getConsignmentDetails = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 2)->first();
+                            echo (($getConsignmentDetails)?$getConsignmentDetails->input_value:'');
                           ?>
                         </td>
                         <td>
