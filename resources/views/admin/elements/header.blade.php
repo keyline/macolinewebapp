@@ -1,6 +1,6 @@
 <div class="navbar-nav-wrap">
   <!-- Logo -->
-  <a class="navbar-brand" href="index.html" aria-label="Front">
+  <a class="navbar-brand" href="<?=url('admin/dashboard')?>" aria-label="Front">
     <img class="navbar-brand-logo" src="<?=env('UPLOADS_URL').$generalSetting->site_logo?>" alt="<?=$generalSetting->site_name?>" data-hs-theme-appearance="default">
     <img class="navbar-brand-logo" src="<?=env('UPLOADS_URL').$generalSetting->site_logo?>" alt="<?=$generalSetting->site_name?>" data-hs-theme-appearance="dark">
     <img class="navbar-brand-logo-mini" src="<?=env('UPLOADS_URL').$generalSetting->site_logo?>" alt="<?=$generalSetting->site_name?>" data-hs-theme-appearance="default">
