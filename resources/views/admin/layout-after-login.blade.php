@@ -258,8 +258,8 @@ $pageFunction = ((count($pageName)>2)?$pageName[2]:'');
           <nav class="js-mega-menu navbar-nav-wrap">
             <!-- Logo -->
             <a class="navbar-brand" href="index.html" aria-label="Front">
-              <img class="navbar-brand-logo" src="<?=env('ADMIN_ASSETS_URL')?>assets/svg/logos/logo.svg" alt="Logo" data-hs-theme-appearance="default">
-              <img class="navbar-brand-logo" src="<?=env('ADMIN_ASSETS_URL')?>assets/svg/logos-light/logo.svg" alt="Logo" data-hs-theme-appearance="dark">
+              <img class="navbar-brand-logo" src="<?=env('UPLOADS_URL').$generalSetting->site_logo?>" alt="<?=$generalSetting->site_name?>" data-hs-theme-appearance="default">
+              <img class="navbar-brand-logo" src="<?=env('UPLOADS_URL').$generalSetting->site_logo?>" alt="<?=$generalSetting->site_name?>" data-hs-theme-appearance="dark">
             </a>
             <!-- End Logo -->
             <!-- Secondary Content -->
