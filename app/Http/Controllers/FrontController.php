@@ -32,14 +32,14 @@ class FrontController extends Controller
     public function cron_for_notification(){
         $current_date       = date('Y-m-d');
         /* cron for admin */
-            $notifications      = DB::table('consignment_details')
-                                                    ->join('consignments', 'consignment_details.consignment_id', '=', 'consignments.id')
+            $notifications      = DB::table('consignments')
+                                                    // ->join('consignments', 'consignment_details.consignment_id', '=', 'consignments.id')
                                                     ->join('customers', 'consignments.customer_id', '=', 'customers.id')
                                                     ->join('pols', 'consignments.pol', '=', 'pols.id')
                                                     ->join('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->join('process_flows', 'consignment_details.process_flow_id', '=', 'process_flows.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name', 'process_flows.name as process_flow_name')
-                                                    ->where('consignment_details.status', '=', 0)
+                                                    // ->join('process_flows', 'consignment_details.process_flow_id', '=', 'process_flows.id')
+                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                    ->where('consignments.status', '=', 1)
                                                     // ->where('consignment_details.input_value', '=', '')
                                                     // ->where('consignment_details.notification_date', '=', $current_date)
                                                     ->orderBy('consignments.id', 'DESC')
