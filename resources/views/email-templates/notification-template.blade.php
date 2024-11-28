@@ -27,6 +27,9 @@ $generalSetting             = GeneralSetting::find('1');
       .text-success{
         color: green;
       }
+      .text-warning{
+        color: orange;
+      }
     </style>
   </head>
   <body style="padding: 0; margin: 0; box-sizing: border-box;">
@@ -63,10 +66,17 @@ $generalSetting             = GeneralSetting::find('1');
                   ?>
                   <ul>
                     <?php if($filledProcessFlows){ foreach($filledProcessFlows as $filledProcessFlow){?>
-                      <li class="text-success"><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
+                      <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
+                      <?php if($notification->shipment_type == 'Import'){?>
+                        <?php if($filledProcessFlow->process_flow_id == 10 && $filledProcessFlow->process_flow_id == 'ORIGINAL'){?>
+                          <li class="text-danger"><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
+                        <?php } else {?>
+
+                        <?php }?>
+                      <?php }?>
                     <?php } }?>
                     <?php if($notFilledProcessFlows){ foreach($notFilledProcessFlows as $notFilledProcessFlow){?>
-                      <li class="text-danger"><?=$notFilledProcessFlow->process_flow_name?> : Need to fill within <?=date_format(date_create($notFilledProcessFlow->notification_date), "d-m-Y")?> (pending)</li>
+                      <li class="text-warning"><?=$notFilledProcessFlow->process_flow_name?> : Need to fill within <?=date_format(date_create($notFilledProcessFlow->notification_date), "d-m-Y")?> (pending)</li>
                     <?php } }?>
                   </ul>
                 </div>
