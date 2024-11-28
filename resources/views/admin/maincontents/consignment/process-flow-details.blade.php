@@ -162,9 +162,9 @@ $user_type = session('type');
                         $pre_alert_field = 0;
                         if($getProcessFlow->type == 'FCL'){?>
                           <?php
-                          $consignmentDetails20   = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 20)->first();
+                          $consignmentDetails40   = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 40)->first();
                           $consignmentDetails21   = ConsignmentDetail::select('input_value')->where('consignment_id', '=', $row->id)->where('process_flow_id', '=', 21)->first();
-                          if(($consignmentDetails20->input_value != '') && ($consignmentDetails21->input_value != '')){
+                          if(($consignmentDetails40->input_value != '') && ($consignmentDetails21->input_value != '')){
                             $pre_alert_field = 1;
                           }?>
                         <?php }?>
