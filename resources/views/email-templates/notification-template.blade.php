@@ -73,6 +73,8 @@ $generalSetting             = GeneralSetting::find('1');
                         <?php } else {?>
                           <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
                         <?php }?>
+                      <?php } else {?>
+                        <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
                       <?php }?>
                     <?php } }?>
                     <?php if($notFilledProcessFlows){ foreach($notFilledProcessFlows as $notFilledProcessFlow){?>
