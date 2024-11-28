@@ -66,7 +66,7 @@ $generalSetting             = GeneralSetting::find('1');
                       <li class="text-success"><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
                     <?php } }?>
                     <?php if($notFilledProcessFlows){ foreach($notFilledProcessFlows as $notFilledProcessFlow){?>
-                      <li class="text-danger"><?=$notFilledProcessFlow->process_flow_name?> : <?=$notFilledProcessFlow->input_value?></li>
+                      <li class="text-danger"><?=$notFilledProcessFlow->process_flow_name?> : Need to fill within <?=date_format(date_create($notFilledProcessFlow->notification_date), "d-m-Y")?> (pending)</li>
                     <?php } }?>
                   </ul>
                 </div>
