@@ -24,6 +24,9 @@ $generalSetting             = GeneralSetting::find('1');
       .text-danger{
         color: red;
       }
+      .text-success{
+        color: green;
+      }
     </style>
   </head>
   <body style="padding: 0; margin: 0; box-sizing: border-box;">
