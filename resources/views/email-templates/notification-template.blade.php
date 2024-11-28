@@ -61,6 +61,7 @@ $generalSetting             = GeneralSetting::find('1');
                                                     ->select('consignment_details.*', 'process_flows.name as process_flow_name')
                                                     ->where('consignment_details.consignment_id', '=', $notification->id)
                                                     ->where('consignment_details.status', '=', 0)
+                                                    ->where('consignment_details.notification_date', '<=', date('Y-m-d'))
                                                     ->orderBy('process_flows.id', 'ASC')
                                                     ->get();
                   ?>
