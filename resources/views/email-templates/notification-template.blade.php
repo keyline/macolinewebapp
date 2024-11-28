@@ -66,12 +66,11 @@ $generalSetting             = GeneralSetting::find('1');
                   ?>
                   <ul>
                     <?php if($filledProcessFlows){ foreach($filledProcessFlows as $filledProcessFlow){?>
-                      <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
                       <?php if($notification->shipment_type == 'Import'){?>
-                        <?php if($filledProcessFlow->process_flow_id == 10 && $filledProcessFlow->process_flow_id == 'ORIGINAL'){?>
+                        <?php if($filledProcessFlow->process_flow_id == 10 && $filledProcessFlow->input_value == 'ORIGINAL'){?>
                           <li class="text-danger"><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
                         <?php } else {?>
-
+                          <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
                         <?php }?>
                       <?php }?>
                     <?php } }?>
