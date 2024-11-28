@@ -47,11 +47,13 @@ $generalSetting             = GeneralSetting::find('1');
                                                     ->join('process_flows', 'consignment_details.process_flow_id', '=', 'process_flows.id')
                                                     ->select('consignment_details.*', 'process_flows.name as process_flow_name')
                                                     ->where('consignment_details.status', '=', 1)
+                                                    ->where('consignment_details.process_flow_id', '=', $notification->id)
                                                     ->orderBy('process_flows.id', 'ASC')
                                                     ->get();
                   $notFilledProcessFlows      = DB::table('consignment_details')
                                                     ->join('process_flows', 'consignment_details.process_flow_id', '=', 'process_flows.id')
                                                     ->select('consignment_details.*', 'process_flows.name as process_flow_name')
+                                                    ->where('consignment_details.process_flow_id', '=', $notification->id)
                                                     ->where('consignment_details.status', '=', 0)
                                                     ->orderBy('process_flows.id', 'ASC')
                                                     ->get();
@@ -59,10 +61,10 @@ $generalSetting             = GeneralSetting::find('1');
                   <ul>
                     <?php if($filledProcessFlows){ foreach($filledProcessFlows as $filledProcessFlow){?>
                       <li class="text-success"><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
-                    <?php }?>
+                    <?php } }?>
                     <?php if($notFilledProcessFlows){ foreach($notFilledProcessFlows as $notFilledProcessFlow){?>
                       <li class="text-danger"><?=$notFilledProcessFlow->process_flow_name?> : <?=$notFilledProcessFlow->input_value?></li>
-                    <?php }?>
+                    <?php } }?>
                   </ul>
                 </div>
               </div>
