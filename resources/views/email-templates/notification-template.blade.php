@@ -1,4 +1,8 @@
 <?php
+use Illuminate\Support\Facades\DB;
+use App\Models\Consignment;
+use App\Models\ConsignmentDetail;
+use App\Models\ProcessFlow;
 use App\Models\GeneralSetting;
 $generalSetting             = GeneralSetting::find('1');
 ?>
@@ -38,12 +42,27 @@ $generalSetting             = GeneralSetting::find('1');
                   <span style="font-size: 14px;"><b>Job Type :</b> <?=$notification->shipment_type?> <?=(($notification->type != '')?'('.$notification->type.')':'')?></span>&nbsp;|&nbsp;
                   <span style="font-size: 14px;"><b>Port of Loading :</b> <?=$notification->pol_name?></span>&nbsp;|&nbsp;
                   <span style="font-size: 14px;"><b>Port of Discharge :</b> <?=$notification->pod_name?></span>&nbsp;|&nbsp;
+                  <?php
+                  $filledProcessFlows         = DB::table('consignment_details')
+                                                    ->join('process_flows', 'consignment_details.process_flow_id', '=', 'process_flows.id')
+                                                    ->select('consignment_details.*', 'process_flows.name as process_flow_name')
+                                                    ->where('consignment_details.status', '=', 1)
+                                                    ->orderBy('process_flows.id', 'ASC')
+                                                    ->get();
+                  $notFilledProcessFlows      = DB::table('consignment_details')
+                                                    ->join('process_flows', 'consignment_details.process_flow_id', '=', 'process_flows.id')
+                                                    ->select('consignment_details.*', 'process_flows.name as process_flow_name')
+                                                    ->where('consignment_details.status', '=', 0)
+                                                    ->orderBy('process_flows.id', 'ASC')
+                                                    ->get();
+                  ?>
                   <ul>
-                    <li>fasfas</li>
-                    <li>fasfas</li>
-                    <li>fasfas</li>
-                    <li class="text-danger">fasfas</li>
-                    <li>fasfas</li>
+                    <?php if($filledProcessFlows){ foreach($filledProcessFlows as $filledProcessFlow){?>
+                      <li class="text-success"><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
+                    <?php }?>
+                    <?php if($notFilledProcessFlows){ foreach($notFilledProcessFlows as $notFilledProcessFlow){?>
+                      <li class="text-danger"><?=$notFilledProcessFlow->process_flow_name?> : <?=$notFilledProcessFlow->input_value?></li>
+                    <?php }?>
                   </ul>
                 </div>
               </div>
