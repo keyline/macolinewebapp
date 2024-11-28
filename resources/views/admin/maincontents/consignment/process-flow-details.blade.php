@@ -190,7 +190,14 @@ $user_type = session('type');
                               <b><?=(($getProcessFlow)?$getProcessFlow->name:'')?></b>
                               <input type="hidden" name="process_flow_id[]" value="<?=$consignmentDetail->process_flow_id?>">
                             </td>
-                            <td><?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?></td>
+                            <!-- <td><?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?></td> -->
+                            <td><?=date_format(date_create($consignmentDetail->notification_date), "M d, Y")?><br><?=(($consignmentDetail->updated_on != '')?date_format(date_create($consignmentDetail->updated_on), "M d, Y h:i A"):'')?></td>
+                            <td>
+                              <?php
+                              $getUser = Admin::select('name')->where('id', '=', $consignmentDetail->updated_by)->first();
+                              echo (($getUser)?$getUser->name:'');
+                              ?>
+                            </td>
                             <td>
                               <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?> <?=(($consignmentDetail->input_value != '')?'disabled':'')?>> <?=$getProcessFlow->name?>
                             </td>
