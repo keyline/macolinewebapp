@@ -19,11 +19,11 @@ if(!empty($parameters)){
   }
 }
 $user_type                  = session('type');
-echo $user_id                    = session('user_id');
+$user_id                    = session('user_id');
 $getAdmin                   = Admin::find($user_id);
-echo $role_id                    = (($getAdmin)?$getAdmin->role:0);
+$role_id                    = (($getAdmin)?$getAdmin->role_id:0);
 $getRole                    = Role::find($role_id);
-Helper::pr($getRole);
+// Helper::pr($getRole);
 ?>
 <div class="navbar-vertical-container">
   <div class="navbar-vertical-footer-offset">
