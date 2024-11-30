@@ -1,6 +1,7 @@
 <?php
 use App\Models\Admin;
 use App\Models\Role;
+use App\Helpers\Helper;
 use Illuminate\Support\Facades\Route;
 $routeName    = Route::current();
 $pageName     = explode("/", $routeName->uri());
@@ -18,10 +19,11 @@ if(!empty($parameters)){
   }
 }
 $user_type                  = session('type');
-$user_id                    = session('user_id');
+echo $user_id                    = session('user_id');
 $getAdmin                   = Admin::find($user_id);
-$role_id                    = (($getAdmin)?$getAdmin->role:0);
+echo $role_id                    = (($getAdmin)?$getAdmin->role:0);
 $getRole                    = Role::find($role_id);
+Helper::pr($getRole);
 ?>
 <div class="navbar-vertical-container">
   <div class="navbar-vertical-footer-offset">
@@ -82,7 +84,7 @@ $getRole                    = Role::find($role_id);
           <?php }?>
         <!-- End masters -->
         <!-- customer -->
-          <?php if($getRole){ if($getRole->add_customer_access){?>
+          <?php if($getRole){ if($getRole->add_customer_access == 1){?>
             <div class="nav-item">
               <a class="nav-link <?=(($pageSegment == 'customer')?'active':'')?>" href="<?=url('admin/customer/list')?>" data-placement="left">
                 <i class="fa fa-users nav-icon"></i>
@@ -91,14 +93,14 @@ $getRole                    = Role::find($role_id);
             </div>
           <?php } }?>
         <!-- End customer -->
-        <!-- customer -->
+        <!-- Consignments -->
           <div class="nav-item">
             <a class="nav-link <?=(($pageSegment == 'consignment')?'active':'')?>" href="<?=url('admin/consignment/list')?>" data-placement="left">
               <i class="fa fa-list-alt nav-icon"></i>
               <span class="nav-link-title">Consignments</span>
             </a>
           </div>
-        <!-- End customer -->
+        <!-- End Consignments -->
         <!-- page -->
           <!-- <div class="nav-item">
             <a class="nav-link <?=(($pageSegment == 'page')?'active':'')?>" href="<?=url('admin/page/list')?>" data-placement="left">
