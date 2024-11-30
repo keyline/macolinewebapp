@@ -1,5 +1,7 @@
 <?php
-use Illuminate\Support\Facades\Route;;
+use App\Models\Admin;
+use App\Models\Role;
+use Illuminate\Support\Facades\Route;
 $routeName    = Route::current();
 $pageName     = explode("/", $routeName->uri());
 $pageSegment  = $pageName[1];
@@ -15,7 +17,11 @@ if(!empty($parameters)){
     $pId2 = Helper::decoded($parameters['id2']);
   }
 }
-$user_type = session('type');
+$user_type                  = session('type');
+$user_id                    = session('user_id');
+$getAdmin                   = Admin::find($user_id);
+$role_id                    = (($getAdmin)?$getAdmin->role:0);
+$getRole                    = Role::find($role_id);
 ?>
 <div class="navbar-vertical-container">
   <div class="navbar-vertical-footer-offset">
@@ -76,14 +82,14 @@ $user_type = session('type');
           <?php }?>
         <!-- End masters -->
         <!-- customer -->
-          <?php if($user_type == 'ma'){?>
+          <?php if($getRole){ if($getRole->add_customer_access){?>
             <div class="nav-item">
               <a class="nav-link <?=(($pageSegment == 'customer')?'active':'')?>" href="<?=url('admin/customer/list')?>" data-placement="left">
                 <i class="fa fa-users nav-icon"></i>
                 <span class="nav-link-title">Customers</span>
               </a>
             </div>
-          <?php }?>
+          <?php } }?>
         <!-- End customer -->
         <!-- customer -->
           <div class="nav-item">
