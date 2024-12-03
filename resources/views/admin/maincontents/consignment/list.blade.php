@@ -108,7 +108,11 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
             <div class="tab-content pt-2">
               <?php if($import_access){?>
                 <div class="tab-pane fade show active profile-overview" id="tab1">
-                  <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php if(count($rows1)>0){?>
+                    <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php } else {?>
+                    <table class="table table-striped table-bordered nowrap">
+                  <?php } ?>
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -288,7 +292,11 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                 }
                 ?>
                 <div class="tab-pane fade <?=$className2?> profile-overview" id="tab2" style="<?=(($showHide2)?'':'display:none;')?>">
-                  <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php if(count($rows2)>0){?>
+                    <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php } else {?>
+                    <table class="table table-striped table-bordered nowrap">
+                  <?php } ?>
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -448,7 +456,11 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                   </table>
                 </div>
                 <div class="tab-pane fade <?=$className3?> profile-overview" id="tab3" style="<?=(($showHide3)?'':'display:none;')?>">
-                  <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php if(count($rows3)>0){?>
+                    <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php } else {?>
+                    <table class="table table-striped table-bordered nowrap">
+                  <?php } ?>
                     <thead>
                       <tr>
                         <th scope="col">#</th>
@@ -608,7 +620,11 @@ $add_consignment_access = (($getRole)?$getRole->add_consignment_access:0);
                   </table>
                 </div>
                 <div class="tab-pane fade <?=$className4?> profile-overview" id="tab4" style="<?=(($showHide4)?'':'display:none;')?>">
-                  <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php if(count($rows4)>0){?>
+                    <table id="simpletable" class="table table-striped table-bordered nowrap">
+                  <?php } else {?>
+                    <table class="table table-striped table-bordered nowrap">
+                  <?php } ?>
                     <thead>
                       <tr>
                         <th scope="col">#</th>

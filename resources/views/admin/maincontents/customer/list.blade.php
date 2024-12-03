@@ -81,7 +81,7 @@ $user_id                        = session('user_id');
                   </tr>
                 <?php } } else {?>
                   <tr>
-                    <td colspan="5" style="text-align: center;color: red;">No Records Found !!!</td>
+                    <td colspan="6" style="text-align: center;color: red;">No Records Found !!!</td>
                   </tr>
                 <?php }?>
               </tbody>
