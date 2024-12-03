@@ -2885,17 +2885,6 @@ $pageFunction = ((count($pageName)>2)?$pageName[2]:'');
     });
     // INITIALIZATION OF DATATABLES
     // =======================================================
-    $('#simpletable').DataTable({
-        columns: [
-            { data: 'column1', defaultContent: '' },
-            { data: 'column2', defaultContent: '' },
-            { data: 'column3', defaultContent: '' }
-        ],
-        data: [],
-        language: {
-            emptyTable: "No data available in table" // Custom message
-        }
-    });
     HSCore.components.HSDatatables.init($('#datatable'), {
       select: {
         style: 'multi',

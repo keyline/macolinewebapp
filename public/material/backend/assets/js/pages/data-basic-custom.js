@@ -1,10 +1,10 @@
 $(document).ready(function() {
     setTimeout(function() {
         // [ Zero Configuration ] start
-        // const dataTable = new simpleDatatables.DataTable("#simpletable", {
-        //     searchable: true,
-        //     fixedHeight: true,
-        // });
+        const dataTable = new simpleDatatables.DataTable("#simpletable", {
+            searchable: true,
+            fixedHeight: true,
+        });
         $('#simpletable').DataTable({
             layout: {
                 topStart: {
