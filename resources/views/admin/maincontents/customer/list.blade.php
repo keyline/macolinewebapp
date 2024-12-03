@@ -1,6 +1,9 @@
 <?php
+use App\Models\Admin;
 use App\Helpers\Helper;
-$controllerRoute = $module['controller_route'];
+$controllerRoute                = $module['controller_route'];
+$user_type                      = session('type');
+$user_id                        = session('user_id');
 ?>
 <div class="pagetitle">
   <h1><?=$page_header?></h1>
@@ -41,6 +44,7 @@ $controllerRoute = $module['controller_route'];
                   <th scope="col">Name</th>
                   <th scope="col">Email</th>
                   <th scope="col">Phone</th>
+                  <th scope="col">Created</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -51,6 +55,16 @@ $controllerRoute = $module['controller_route'];
                     <td><?=$row->name?></td>
                     <td><?=$row->email?></td>
                     <td>(<?=$row->phone_code?>) <?=$row->phone?></td>
+                    <td>
+                      <?php if($user_type == 'ma'){?>
+                        Master Admin
+                      <?php } else {?>
+                        <?php
+                        $getAdminUser = Admin::select('name')->where('id', '=', $user_id)->first();
+                        echo (($getAdminUser)?$getAdminUser->name:'');
+                        ?>
+                      <?php }?>
+                    </td>
                     <td>
                       <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
                       <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>
