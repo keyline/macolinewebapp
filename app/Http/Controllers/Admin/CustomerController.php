@@ -28,7 +28,14 @@ class CustomerController extends Controller
             $data['module']                 = $this->data;
             $title                          = $this->data['title'].' List';
             $page_name                      = 'customer.list';
-            $data['rows']                   = Customer::where('status', '!=', 3)->orderBy('id', 'DESC')->get();
+            
+            $user_type                      = session('type');
+            $user_id                        = session('user_id');
+            if($user_type == 'ma'){
+                $data['rows']                   = Customer::where('status', '!=', 3)->orderBy('id', 'DESC')->get();
+            } else {
+                $data['rows']                   = Customer::where('status', '!=', 3)->where('created_by', '=', $user_id)->orderBy('id', 'DESC')->get();
+            }
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }
     /* list */
@@ -49,6 +56,8 @@ class CustomerController extends Controller
                         'email'                   => $postData['email'],
                         'phone_code'              => $postData['phone_code'],
                         'phone'                   => $postData['phone'],
+                        'created_by'              => session('user_id'),
+                        'updated_by'              => session('user_id'),
                     ];
                     Customer::insert($fields);
                     return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Inserted Successfully !!!');
@@ -84,6 +93,8 @@ class CustomerController extends Controller
                         'email'                   => $postData['email'],
                         'phone_code'              => $postData['phone_code'],
                         'phone'                   => $postData['phone'],
+                        'created_by'              => session('user_id'),
+                        'updated_by'              => session('user_id'),
                     ];
                     // Helper::pr($fields);
                     Customer::where($this->data['primary_key'], '=', $id)->update($fields);
