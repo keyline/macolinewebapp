@@ -223,26 +223,56 @@ class UserController extends Controller
     /* authentication */
     /* dashboard */
         public function dashboard(){
-            $data['rows1_count']            = DB::table('consignments')
-                                                ->where('consignments.status', '!=', 3)
-                                                ->where('consignments.shipment_type', '=', 'Import')
-                                                ->where('consignments.type', '=', '')
-                                                ->count();
-            $data['rows2_count']            = DB::table('consignments')
-                                                ->where('consignments.status', '!=', 3)
-                                                ->where('consignments.shipment_type', '=', 'Export')
-                                                ->where('consignments.type', '=', 'FCL')
-                                                ->count();
-            $data['rows3_count']            = DB::table('consignments')
-                                                ->where('consignments.status', '!=', 3)
-                                                ->where('consignments.shipment_type', '=', 'Export')
-                                                ->where('consignments.type', '=', 'LCL')
-                                                ->count();
-            $data['rows4_count']            = DB::table('consignments')
-                                                ->where('consignments.status', '!=', 3)
-                                                ->where('consignments.shipment_type', '=', 'Export')
-                                                ->where('consignments.type', '=', 'LCL CO LOAD')
-                                                ->count();
+            $user_type                      = session('type');
+            $user_id                        = session('user_id');
+            if($user_type == 'ma'){
+                $data['rows1_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Import')
+                                                    ->where('consignments.type', '=', '')
+                                                    ->count();
+                $data['rows2_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'FCL')
+                                                    ->count();
+                $data['rows3_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'LCL')
+                                                    ->count();
+                $data['rows4_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                    ->count();
+            } else {
+                $data['rows1_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Import')
+                                                    ->where('consignments.type', '=', '')
+                                                    ->where('consignments.created_by', '=', $user_id)
+                                                    ->count();
+                $data['rows2_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'FCL')
+                                                    ->where('consignments.created_by', '=', $user_id)
+                                                    ->count();
+                $data['rows3_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'LCL')
+                                                    ->where('consignments.created_by', '=', $user_id)
+                                                    ->count();
+                $data['rows4_count']            = DB::table('consignments')
+                                                    ->where('consignments.status', '!=', 3)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                    ->where('consignments.created_by', '=', $user_id)
+                                                    ->count();
+            }
+            
 
             $data['rows1']                  = DB::table('consignments')
                                                 ->join('customers', 'consignments.customer_id', '=', 'customers.id')
