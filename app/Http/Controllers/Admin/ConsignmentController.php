@@ -12,6 +12,7 @@ use App\Models\Customer;
 use App\Models\Pol;
 use App\Models\Pod;
 use App\Models\ProcessFlow;
+use App\Models\Role;
 
 use Auth;
 use Session;
@@ -37,92 +38,144 @@ class ConsignmentController extends Controller
 
             $user_type                      = session('type');
             $user_id                        = session('user_id');
-            if($user_type == 'ma'){
-                $data['rows1']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Import')
-                                                    ->where('consignments.type', '=', '')
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
-                $data['rows2']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Export')
-                                                    ->where('consignments.type', '=', 'FCL')
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
-                $data['rows3']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Export')
-                                                    ->where('consignments.type', '=', 'LCL')
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
-                $data['rows4']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Export')
-                                                    ->where('consignments.type', '=', 'LCL CO LOAD')
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
-            } else {
-                $data['rows1']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Import')
-                                                    ->where('consignments.type', '=', '')
-                                                    ->where('consignments.created_by', '=', $user_id)
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
-                $data['rows2']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Export')
-                                                    ->where('consignments.type', '=', 'FCL')
-                                                    ->where('consignments.created_by', '=', $user_id)
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
-                $data['rows3']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Export')
-                                                    ->where('consignments.type', '=', 'LCL')
-                                                    ->where('consignments.created_by', '=', $user_id)
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
-                $data['rows4']                  = DB::table('consignments')
-                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
-                                                    ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
-                                                    ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
-                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
-                                                    ->where('consignments.status', '!=', 3)
-                                                    ->where('consignments.shipment_type', '=', 'Export')
-                                                    ->where('consignments.type', '=', 'LCL CO LOAD')
-                                                    ->where('consignments.created_by', '=', $user_id)
-                                                    ->orderBy('consignments.id', 'DESC')
-                                                    ->get();
+            $role_id                        = session('role_id');
+            $getRole                        = Role::where('id', '=', $role_id)->first();
+            $data['rows1']                  = [];
+            $data['rows2']                  = [];
+            $data['rows3']                  = [];
+            $data['rows4']                  = [];
+
+            if($getRole){
+                if($user_type == 'ma'){
+                    $data['rows1']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Import')
+                                                        ->where('consignments.type', '=', '')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                    $data['rows2']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Export')
+                                                        ->where('consignments.type', '=', 'FCL')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                    $data['rows3']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Export')
+                                                        ->where('consignments.type', '=', 'LCL')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                    $data['rows4']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Export')
+                                                        ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                } else {
+                    if($getRole->add_consignment_access){
+                        $data['rows1']                  = DB::table('consignments')
+                                                            ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                            ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                            ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                            ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                            ->where('consignments.status', '!=', 3)
+                                                            ->where('consignments.shipment_type', '=', 'Import')
+                                                            ->where('consignments.type', '=', '')
+                                                            ->where('consignments.created_by', '=', $user_id)
+                                                            ->orderBy('consignments.id', 'DESC')
+                                                            ->get();
+                        $data['rows2']                  = DB::table('consignments')
+                                                            ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                            ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                            ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                            ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                            ->where('consignments.status', '!=', 3)
+                                                            ->where('consignments.shipment_type', '=', 'Export')
+                                                            ->where('consignments.type', '=', 'FCL')
+                                                            ->where('consignments.created_by', '=', $user_id)
+                                                            ->orderBy('consignments.id', 'DESC')
+                                                            ->get();
+                        $data['rows3']                  = DB::table('consignments')
+                                                            ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                            ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                            ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                            ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                            ->where('consignments.status', '!=', 3)
+                                                            ->where('consignments.shipment_type', '=', 'Export')
+                                                            ->where('consignments.type', '=', 'LCL')
+                                                            ->where('consignments.created_by', '=', $user_id)
+                                                            ->orderBy('consignments.id', 'DESC')
+                                                            ->get();
+                        $data['rows4']                  = DB::table('consignments')
+                                                            ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                            ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                            ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                            ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                            ->where('consignments.status', '!=', 3)
+                                                            ->where('consignments.shipment_type', '=', 'Export')
+                                                            ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                            ->where('consignments.created_by', '=', $user_id)
+                                                            ->orderBy('consignments.id', 'DESC')
+                                                            ->get();
+                    } else {
+                        $data['rows1']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Import')
+                                                        ->where('consignments.type', '=', '')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                    $data['rows2']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Export')
+                                                        ->where('consignments.type', '=', 'FCL')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                    $data['rows3']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Export')
+                                                        ->where('consignments.type', '=', 'LCL')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                    $data['rows4']                  = DB::table('consignments')
+                                                        ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                        ->leftjoin('pols', 'consignments.pol', '=', 'pols.id')
+                                                        ->leftjoin('pods', 'consignments.pod', '=', 'pods.id')
+                                                        ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                        ->where('consignments.status', '!=', 3)
+                                                        ->where('consignments.shipment_type', '=', 'Export')
+                                                        ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                        ->orderBy('consignments.id', 'DESC')
+                                                        ->get();
+                    }
+                }
             }
             echo $this->admin_after_login_layout($title,$page_name,$data);
         }
