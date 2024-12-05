@@ -13,6 +13,10 @@ use App\Models\UserActivity;
 use App\Models\SubscriptionPackage;
 use App\Models\User;
 use App\Models\UserSubscription;
+use App\Models\Role;
+use App\Models\Consignment;
+use App\Models\ConsignmentDetail;
+
 use Auth;
 use Mail;
 use App\Mail\ForgotPwdMail;
