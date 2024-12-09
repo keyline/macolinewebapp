@@ -97,7 +97,7 @@ class FrontController extends Controller
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
                 if($getImportUsers){
                     foreach($getImportUsers as $getImportUser){
-                        // $this->sendMail($getImportUser->admin_email, $subject, $message);
+                        $this->sendMail($getImportUser->admin_email, $subject, $message);
                         /* email log save */
                             $postData2 = [
                                 'name'                  => $getImportUser->admin_name,
@@ -144,7 +144,7 @@ class FrontController extends Controller
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
                 if($getExportUsers){
                     foreach($getExportUsers as $getExportUser){
-                        // $this->sendMail($getExportUser->admin_email, $subject, $message);
+                        $this->sendMail($getExportUser->admin_email, $subject, $message);
                         /* email log save */
                             $postData2 = [
                                 'name'                  => $getExportUser->admin_name,
