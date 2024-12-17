@@ -16,7 +16,7 @@ use App\Models\UserSubscription;
 use App\Models\Role;
 use App\Models\Consignment;
 use App\Models\ConsignmentDetail;
-use App\Providers\PHPMailerService;
+use App\Providers\PHPMailerServiceProvider;
 
 use Auth;
 use Mail;
@@ -32,9 +32,9 @@ class UserController extends Controller
 {
     protected $mailer;
 
-    public function __construct(PHPMailerService $mailer)
+    public function __construct(PHPMailerServiceProvider $mailer)
     {
-        $this->mailer = $mailer; // Inject PHPMailerService
+        $this->mailer = $mailer; // Inject PHPMailerServiceProvider
     }
     /* authentication */
         public function login(Request $request){

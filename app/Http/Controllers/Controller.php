@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\UserAccess;
 use App\Models\Category;
 use App\Models\Manufacturer;
+use App\Providers\PHPMailerServiceProvider;
 use Session;
 use Helper;
 
