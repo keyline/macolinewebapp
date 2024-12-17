@@ -16,7 +16,7 @@ use App\Models\UserSubscription;
 use App\Models\Role;
 use App\Models\Consignment;
 use App\Models\ConsignmentDetail;
-use App\Providers\PHPMailerServiceProvider;
+// use App\Providers\PHPMailerServiceProvider;
 
 use Auth;
 use Mail;
@@ -30,12 +30,12 @@ use DB;
 
 class UserController extends Controller
 {
-    protected $mailer;
+    // protected $mailer;
 
-    public function __construct(PHPMailerServiceProvider $mailer)
-    {
-        $this->mailer = $mailer; // Inject PHPMailerServiceProvider
-    }
+    // public function __construct(PHPMailerServiceProvider $mailer)
+    // {
+    //     $this->mailer = $mailer; // Inject PHPMailerServiceProvider
+    // }
     /* authentication */
         public function login(Request $request){
             if($request->isMethod('post')){
@@ -825,10 +825,10 @@ class UserController extends Controller
             return redirect()->back()->with('success_message', 'Owner Signature Settings Updated Successfully !!!');
         }
         public function testEmail(Request $request){
-            $mailer = new PHPMailerService();
+            // $mailer = new PHPMailerService();
             $subject = "Test Email Subject On " . date('Y-m-d H:i:s');
             $message = "Test Email Body On " . date('Y-m-d H:i:s');
-            $this->mailer->sendMail('subhomoy@keylines.net',$subject,$message);
+            $this->sendMail('subhomoy@keylines.net',$subject,$message);
             return redirect()->back()->with('success_message', 'Test Email Send Successfully !!!');
         }
     /* settings */
