@@ -16,7 +16,7 @@ use App\Models\UserSubscription;
 use App\Models\Role;
 use App\Models\Consignment;
 use App\Models\ConsignmentDetail;
-use App\Services\PHPMailerService;
+use App\Providers\PHPMailerService;
 
 use Auth;
 use Mail;
