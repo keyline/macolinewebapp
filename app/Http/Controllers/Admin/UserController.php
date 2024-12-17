@@ -817,6 +817,12 @@ class UserController extends Controller
             GeneralSetting::where('id', '=', 1)->update($fields);
             return redirect()->back()->with('success_message', 'Owner Signature Settings Updated Successfully !!!');
         }
+        public function testEmail(Request $request){
+            $subject = "Test Email Subject On " . date('Y-m-d H:i:s');
+            $message = "Test Email Body On " . date('Y-m-d H:i:s');
+            $this->sendMail('subhomoy@keylines.net',$subject,$message);
+            return redirect()->back()->with('success_message', 'Test Email Send Successfully !!!');
+        }
     /* settings */
     /* email logs */
         public function emailLogs(){
