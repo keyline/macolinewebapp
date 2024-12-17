@@ -172,6 +172,7 @@ return [
         //App\Providers\SiteConfigurationServiceProvider::class,
         App\Providers\ConfigurationServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
+        App\Providers\PHPMailerServiceProvider::class,
     ])->toArray(),
 
     /*
