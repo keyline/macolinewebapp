@@ -13,7 +13,7 @@ class PHPMailerService
     {
         $this->mail = new PHPMailer(true);
         $generalSetting             = GeneralSetting::find('1');
-        echo '<pre>';print_r($generalSetting);die;
+        // echo '<pre>';print_r($generalSetting);die;
         // Server settings
         $this->mail->isSMTP();
         $this->mail->Host = env('MAIL_HOST', 'smtp-relay.brevo.com');
