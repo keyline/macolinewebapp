@@ -16,7 +16,7 @@ use App\Models\UserSubscription;
 use App\Models\Role;
 use App\Models\Consignment;
 use App\Models\ConsignmentDetail;
-// use App\Providers\PHPMailerServiceProvider;
+use App\Mail\PHPMailer\PHPMailerService;
 
 use Auth;
 use Mail;
@@ -824,11 +824,22 @@ class UserController extends Controller
             GeneralSetting::where('id', '=', 1)->update($fields);
             return redirect()->back()->with('success_message', 'Owner Signature Settings Updated Successfully !!!');
         }
-        public function testEmail(Request $request){
-            // $mailer = new PHPMailerService();
+        // public function testEmail(Request $request){
+        //     // $mailer = new PHPMailerService();
+        //     $subject = "Test Email Subject On " . date('Y-m-d H:i:s');
+        //     $message = "Test Email Body On " . date('Y-m-d H:i:s');
+        //     $this->sendMail('subhomoy@keylines.net',$subject,$message);
+        //     return redirect()->back()->with('success_message', 'Test Email Send Successfully !!!');
+        // }
+        public function testEmail()
+        {
+            $mailer = new PHPMailerService();
+            $to = 'subhomoy@keylines.net';
             $subject = "Test Email Subject On " . date('Y-m-d H:i:s');
-            $message = "Test Email Body On " . date('Y-m-d H:i:s');
-            $this->sendMail('subhomoy@keylines.net',$subject,$message);
+            $body = "Test Email Body On " . date('Y-m-d H:i:s');
+            $result = $mailer->sendMail($to, $subject, $body);
+            // return response()->json(['message' => $result]);
+            Helper::pr($result);
             return redirect()->back()->with('success_message', 'Test Email Send Successfully !!!');
         }
     /* settings */
