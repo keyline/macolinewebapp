@@ -839,7 +839,7 @@ class UserController extends Controller
             $body = "Test Email Body On " . date('Y-m-d H:i:s');
             $result = $mailer->sendMail($to, $subject, $body);
             // return response()->json(['message' => $result]);
-            Helper::pr($result);
+            // Helper::pr($result);
             return redirect()->back()->with('success_message', 'Test Email Send Successfully !!!');
         }
     /* settings */

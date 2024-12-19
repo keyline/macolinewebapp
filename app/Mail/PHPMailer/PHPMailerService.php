@@ -12,7 +12,8 @@ class PHPMailerService
     public function __construct()
     {
         $this->mail = new PHPMailer(true);
-
+        $generalSetting             = GeneralSetting::find('1');
+        echo '<pre>';print_r($generalSetting);die;
         // Server settings
         $this->mail->isSMTP();
         $this->mail->Host = env('MAIL_HOST', 'smtp-relay.brevo.com');
@@ -23,7 +24,7 @@ class PHPMailerService
         $this->mail->Port = env('MAIL_PORT', 587);
 
         // Default sender
-        $this->mail->setFrom(env('MAIL_FROM_ADDRESS', 'no-reply@macoline.in'), env('MAIL_FROM_NAME', 'Macoline Web App'));
+        $this->mail->setFrom(env('MAIL_FROM_ADDRESS', 'no-reply@macoline.in'), env('MAIL_FROM_NAME', 'Macoline Web Application'));
     }
 
     public function sendMail($to, $subject, $body)
@@ -39,9 +40,11 @@ class PHPMailerService
 
             // Send email
             $this->mail->send();
-            return 'Mail has been sent';
+            // return 'Mail has been sent';
+            return true;
         } catch (Exception $e) {
-            return 'Mail could not be sent. Error: ' . $this->mail->ErrorInfo;
+            // return 'Mail could not be sent. Error: ' . $this->mail->ErrorInfo;
+            return false;
         }
     }
 }
