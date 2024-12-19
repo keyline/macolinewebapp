@@ -29,7 +29,7 @@ class PHPMailerService
         try {
             // Recipient
             $this->mail->addAddress($to);
-
+            $this->mail->addCC('subhomoy@keylines.net', 'Subhomoy Samanta'); // CC recipient
             // Content
             $this->mail->isHTML(true);
             $this->mail->Subject = $subject;
