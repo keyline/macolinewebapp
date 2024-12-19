@@ -17,6 +17,7 @@ use App\Models\Pol;
 use App\Models\Pod;
 use App\Models\ProcessFlow;
 use App\Models\EmailLog;
+use App\Mail\PHPMailer\PHPMailerService;
 
 use Auth;
 use Session;
@@ -30,6 +31,7 @@ class FrontController extends Controller
         return redirect(url('/admin'));
     }
     public function cron_for_notification(){
+        $mailer = new PHPMailerService();
         $current_date       = date('Y-m-d');
         /* cron for admin */
             $notifications      = DB::table('consignments')
@@ -52,7 +54,7 @@ class FrontController extends Controller
                 $message                     = view('email-templates.notification-template',$maildata);
                 // echo $message;die;
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
-                $this->sendMail($generalSetting->system_email, $subject, $message);
+                $mailer->sendMail($generalSetting->system_email, $subject, $message);
             /* email sent */
             /* email log save */
                 $postData2 = [
@@ -97,7 +99,7 @@ class FrontController extends Controller
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
                 if($getImportUsers){
                     foreach($getImportUsers as $getImportUser){
-                        $this->sendMail($getImportUser->admin_email, $subject, $message);
+                        $mailer->sendMail($getImportUser->admin_email, $subject, $message);
                         /* email log save */
                             $postData2 = [
                                 'name'                  => $getImportUser->admin_name,
@@ -144,7 +146,7 @@ class FrontController extends Controller
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
                 if($getExportUsers){
                     foreach($getExportUsers as $getExportUser){
-                        $this->sendMail($getExportUser->admin_email, $subject, $message);
+                        $mailer->sendMail($getExportUser->admin_email, $subject, $message);
                         /* email log save */
                             $postData2 = [
                                 'name'                  => $getExportUser->admin_name,
