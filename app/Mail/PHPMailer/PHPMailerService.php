@@ -15,15 +15,15 @@ class PHPMailerService
 
         // Server settings
         $this->mail->isSMTP();
-        $this->mail->Host = env('MAIL_HOST', 'smtp.example.com');
+        $this->mail->Host = env('MAIL_HOST', 'smtp-relay.brevo.com');
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = env('MAIL_USERNAME', 'your_username');
-        $this->mail->Password = env('MAIL_PASSWORD', 'your_password');
+        $this->mail->Username = env('MAIL_USERNAME', '819808001@smtp-brevo.com');
+        $this->mail->Password = env('MAIL_PASSWORD', 'kTA9qQXYSC4281MD');
         $this->mail->SMTPSecure = env('MAIL_ENCRYPTION', 'tls'); // or 'ssl'
         $this->mail->Port = env('MAIL_PORT', 587);
 
         // Default sender
-        $this->mail->setFrom(env('MAIL_FROM_ADDRESS', 'noreply@example.com'), env('MAIL_FROM_NAME', 'Your Application'));
+        $this->mail->setFrom(env('MAIL_FROM_ADDRESS', 'no-reply@macoline.in'), env('MAIL_FROM_NAME', 'Macoline Web App'));
     }
 
     public function sendMail($to, $subject, $body)
