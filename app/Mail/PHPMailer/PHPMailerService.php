@@ -4,7 +4,7 @@ namespace App\Mail\PHPMailer;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
+use App\Models\GeneralSetting;
 class PHPMailerService
 {
     protected $mail;
