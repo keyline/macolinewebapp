@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Mail\PHPMailer;
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use App\Models\GeneralSetting;
@@ -13,18 +11,17 @@ class PHPMailerService
     {
         $this->mail = new PHPMailer(true);
         $generalSetting             = GeneralSetting::find('1');
-        // echo '<pre>';print_r($generalSetting);die;
         // Server settings
         $this->mail->isSMTP();
-        $this->mail->Host = env('MAIL_HOST', 'smtp-relay.brevo.com');
+        $this->mail->Host = $generalSetting->smtp_host;
         $this->mail->SMTPAuth = true;
-        $this->mail->Username = env('MAIL_USERNAME', '819808001@smtp-brevo.com');
-        $this->mail->Password = env('MAIL_PASSWORD', 'kTA9qQXYSC4281MD');
+        $this->mail->Username = $generalSetting->smtp_username;
+        $this->mail->Password = $generalSetting->smtp_password;
         $this->mail->SMTPSecure = env('MAIL_ENCRYPTION', 'tls'); // or 'ssl'
-        $this->mail->Port = env('MAIL_PORT', 587);
+        $this->mail->Port = $generalSetting->smtp_port;
 
         // Default sender
-        $this->mail->setFrom(env('MAIL_FROM_ADDRESS', 'no-reply@macoline.in'), env('MAIL_FROM_NAME', 'Macoline Web Application'));
+        $this->mail->setFrom($generalSetting->from_email, $generalSetting->from_name);
     }
 
     public function sendMail($to, $subject, $body)
