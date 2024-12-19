@@ -350,7 +350,7 @@ $user_type = session('type');
                   <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
               </form><!-- End email settings Form -->
-              <a href="<?=url('admin/test-email')?>" class="btn btn-info btn-sm">Test Email</a>
+              <a href="<?=url('admin/test-email')?>" class="btn btn-info btn-sm"><i class="fa fa-envelope"></i> Send Test Email</a>
             </div>
           </div><!-- End Bordered Tabs -->
         </div>
