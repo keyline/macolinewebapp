@@ -118,13 +118,13 @@ $user_type = session('type');
                           <td>
                             <?php if($getProcessFlow){?>
                               <?php if($getProcessFlow->form_element_type == 'textbox'){?>
-                                <input type="text" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>" placeholder="Enter <?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value != '')?'readonly':'')?>>
+                                <input type="text" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>" placeholder="Enter <?=$getProcessFlow->name?>">
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'select'){?>
                                 <?php
                                 $options = explode(',', $getProcessFlow->options);
                                 ?>
-                                <select class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" <?=(($consignmentDetail->input_value != '')?'disabled':'')?>>
+                                <select class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]">
                                   <option value="" selected>Select</option>
                                   <?php if(!empty($options)){ for($s=0;$s<count($options);$s++){?>
                                     <option value="<?=$options[$s]?>" <?=(($options[$s] == $consignmentDetail->input_value)?'selected':'')?>><?=$options[$s]?></option>
@@ -132,7 +132,7 @@ $user_type = session('type');
                                 </select>
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'checkbox'){?>
-                                <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?> <?=(($consignmentDetail->input_value != '')?'disabled':'')?>> <?=$getProcessFlow->name?>
+                                <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?>> <?=$getProcessFlow->name?>
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'radio'){?>
                                 <?php
@@ -142,17 +142,17 @@ $user_type = session('type');
                                   <input type="radio" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$options[$m]?>" <?=(($consignmentDetail->input_value == $options[$m])?'checked':'')?>> <?=$options[$m]?>
                                 <?php } }?>
                                 <?php if($getProcessFlow->id == 21 && $consignmentDetail->input_value == 'Applicable'){?>
-                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number" <?=(($consignmentDetail->input_value != '')?'readonly':'')?>>
+                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number">
                                 <?php }?>
                                 <?php if($getProcessFlow->id == 28 && $consignmentDetail->input_value == 'Applicable'){?>
-                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number" <?=(($consignmentDetail->input_value != '')?'readonly':'')?>>
+                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number">
                                 <?php }?>
                                 <?php if($getProcessFlow->id == 35 && $consignmentDetail->input_value == 'Applicable'){?>
-                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number" <?=(($consignmentDetail->input_value != '')?'readonly':'')?>>
+                                  <input type="text" class="form-control" name="hbl_number" value="<?=$consignmentDetail->hbl_number?>" placeholder="Enter HBL Number">
                                 <?php }?>
                               <?php }?>
                               <?php if($getProcessFlow->form_element_type == 'datebox'){?>
-                                <input type="date" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>" <?=(($consignmentDetail->input_value != '')?'readonly':'')?>>
+                                <input type="date" class="form-control" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$consignmentDetail->input_value?>">
                               <?php }?>
                             <?php }?>
                           </td>
@@ -199,7 +199,7 @@ $user_type = session('type');
                               ?>
                             </td>
                             <td>
-                              <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?> <?=(($consignmentDetail->input_value != '')?'disabled':'')?>> <?=$getProcessFlow->name?>
+                              <input type="checkbox" name="input_value[<?=$consignmentDetail->process_flow_id?>]" value="<?=$getProcessFlow->name?>" <?=(($consignmentDetail->input_value == $getProcessFlow->name)?'checked':'')?>> <?=$getProcessFlow->name?>
                             </td>
                           </tr>
                         <?php }?>
