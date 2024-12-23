@@ -71,7 +71,13 @@ $generalSetting             = GeneralSetting::find('1');
                         <?php if($filledProcessFlow->process_flow_id == 10 && $filledProcessFlow->input_value == 'ORIGINAL'){?>
                           <li class="text-danger"><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
                         <?php } else {?>
-                          <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
+                          <?php if($filledProcessFlow->process_flow_id == 1){?>
+                            <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
+                          <?php }?>
+                          <?php if($filledProcessFlow->process_flow_id == 2){?>
+                            <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
+                          <?php }?>
+                          <!-- <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li> -->
                         <?php }?>
                       <?php } else {?>
                         <li><?=$filledProcessFlow->process_flow_name?> : <?=$filledProcessFlow->input_value?></li>
