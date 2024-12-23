@@ -30,15 +30,23 @@ $controllerRoute                = $module['controller_route'];
     </div>
     <?php
     if($row){
-      $name         = $row->name;
-      $email        = $row->email;
-      $mobile       = $row->mobile;
-      $role_id      = $row->role_id;
+      $name                             = $row->name;
+      $email                            = $row->email;
+      $mobile                           = $row->mobile;
+      $role_id                          = $row->role_id;
+      $is_import_email                  = $row->is_import_email;
+      $is_fcl_export_email              = $row->is_fcl_export_email;
+      $is_lcl_export_email              = $row->is_lcl_export_email;
+      $is_lcl_co_load_export_email      = $row->is_lcl_co_load_export_email;
     } else {
-      $name         = '';
-      $email        = '';
-      $mobile       = '';
-      $role_id      = '';
+      $name                             = '';
+      $email                            = '';
+      $mobile                           = '';
+      $role_id                          = '';
+      $is_import_email                  = '';
+      $is_fcl_export_email              = '';
+      $is_lcl_export_email              = '';
+      $is_lcl_co_load_export_email      = '';
     }
     ?>
     <div class="col-xl-12">
@@ -80,6 +88,38 @@ $controllerRoute                = $module['controller_route'];
               <div class="col-md-10 col-lg-10">
                 <input type="password" name="password" class="form-control" id="password" value="" <?=((!empty($row))?'':'required')?>>
                 <?php if($row){?><small class="text-info">* Leave blank if you don't want to change password</small><br><?php }?>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="is_import_email" class="col-md-2 col-lg-2 col-form-label">Import Email Access</label>
+              <div class="col-md-10 col-lg-10">
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" name="is_import_email" id="is_import_email" <?=(($is_import_email)?'checked':'')?>>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="is_fcl_export_email" class="col-md-2 col-lg-2 col-form-label">Export FCL Email Access</label>
+              <div class="col-md-10 col-lg-10">
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" name="is_fcl_export_email" id="is_fcl_export_email" <?=(($is_fcl_export_email)?'checked':'')?>>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="is_lcl_export_email" class="col-md-2 col-lg-2 col-form-label">Export LCL Email Access</label>
+              <div class="col-md-10 col-lg-10">
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" name="is_lcl_export_email" id="is_lcl_export_email" <?=(($is_lcl_export_email)?'checked':'')?>>
+                </div>
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="is_lcl_co_load_export_email" class="col-md-2 col-lg-2 col-form-label">Export LCL CO LOAD Email Access</label>
+              <div class="col-md-10 col-lg-10">
+                <div class="form-check form-switch mb-3">
+                  <input class="form-check-input" type="checkbox" name="is_lcl_co_load_export_email" id="is_lcl_co_load_export_email" <?=(($is_lcl_co_load_export_email)?'checked':'')?>>
+                </div>
               </div>
             </div>
             <div class="text-center">

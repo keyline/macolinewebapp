@@ -51,11 +51,15 @@ class SubUserController extends Controller
                     $checkValue = Admin::where('name', '=', $postData['name'])->count();
                     if($checkValue <= 0){
                         $fields = [
-                            'name'              => $postData['name'],
-                            'mobile'            => $postData['mobile'],
-                            'email'             => $postData['email'],
-                            'role_id'           => $postData['role_id'],
-                            'password'          => Hash::make($postData['password']),
+                            'name'                          => $postData['name'],
+                            'mobile'                        => $postData['mobile'],
+                            'email'                         => $postData['email'],
+                            'role_id'                       => $postData['role_id'],
+                            'password'                      => Hash::make($postData['password']),
+                            'is_import_email'               => ((array_key_exists("is_import_email",$postData))?1:0),
+                            'is_fcl_export_email'           => ((array_key_exists("is_fcl_export_email",$postData))?1:0),
+                            'is_lcl_export_email'           => ((array_key_exists("is_lcl_export_email",$postData))?1:0),
+                            'is_lcl_co_load_export_email'   => ((array_key_exists("is_lcl_co_load_export_email",$postData))?1:0),
                         ];
                         Admin::insert($fields);
                         return redirect("admin/" . $this->data['controller_route'] . "/list")->with('success_message', $this->data['title'].' Inserted Successfully !!!');
@@ -96,20 +100,28 @@ class SubUserController extends Controller
                     if($checkValue <= 0){
                         if($postData['password'] != ''){
                             $fields = [
-                                'name'                  => $postData['name'],
-                                'mobile'                => $postData['mobile'],
-                                'email'                 => $postData['email'],
-                                'role_id'           => $postData['role_id'],
-                                'password'              => Hash::make($postData['password']),
-                                'updated_at'            => date('Y-m-d H:i:s')
+                                'name'                          => $postData['name'],
+                                'mobile'                        => $postData['mobile'],
+                                'email'                         => $postData['email'],
+                                'role_id'                       => $postData['role_id'],
+                                'password'                      => Hash::make($postData['password']),
+                                'is_import_email'               => ((array_key_exists("is_import_email",$postData))?1:0),
+                                'is_fcl_export_email'           => ((array_key_exists("is_fcl_export_email",$postData))?1:0),
+                                'is_lcl_export_email'           => ((array_key_exists("is_lcl_export_email",$postData))?1:0),
+                                'is_lcl_co_load_export_email'   => ((array_key_exists("is_lcl_co_load_export_email",$postData))?1:0),
+                                'updated_at'                    => date('Y-m-d H:i:s')
                             ];
                         } else {
                             $fields = [
-                                'name'                  => $postData['name'],
-                                'mobile'                => $postData['mobile'],
-                                'email'                 => $postData['email'],
-                                'role_id'           => $postData['role_id'],
-                                'updated_at'            => date('Y-m-d H:i:s')
+                                'name'                          => $postData['name'],
+                                'mobile'                        => $postData['mobile'],
+                                'email'                         => $postData['email'],
+                                'role_id'                       => $postData['role_id'],
+                                'is_import_email'               => ((array_key_exists("is_import_email",$postData))?1:0),
+                                'is_fcl_export_email'           => ((array_key_exists("is_fcl_export_email",$postData))?1:0),
+                                'is_lcl_export_email'           => ((array_key_exists("is_lcl_export_email",$postData))?1:0),
+                                'is_lcl_co_load_export_email'   => ((array_key_exists("is_lcl_co_load_export_email",$postData))?1:0),
+                                'updated_at'                    => date('Y-m-d H:i:s')
                             ];
                         }
                         Admin::where($this->data['primary_key'], '=', $id)->update($fields);
