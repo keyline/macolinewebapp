@@ -52,7 +52,7 @@ class FrontController extends Controller
                     'notifications'     => $notifications,
                 ];
                 $message                     = view('email-templates.notification-template',$maildata);
-                echo $message;die;
+                // echo $message;die;
                 $subject                     = $generalSetting->site_name.' '.$mail_header;
                 $mailer->sendMail($generalSetting->system_email, $subject, $message);
             /* email sent */
@@ -73,7 +73,7 @@ class FrontController extends Controller
                                                     ->select('admins.email as admin_email', 'admins.name as admin_name')
                                                     ->where('admins.status', '=', 1)
                                                     ->where('admins.type', '=', 's')
-                                                    ->where('roles.import_access', '=', 1)
+                                                    ->where('admins.is_import_email', '=', 1)
                                                     ->orderBy('admins.id', 'ASC')
                                                     ->get();
             $notifications      = DB::table('consignments')
@@ -114,13 +114,13 @@ class FrontController extends Controller
                 
             /* email sent */
         /* cron for import */
-        /* cron for export */
+        /* cron for export fcl */
             $getExportUsers     = DB::table('admins')
                                                     ->join('roles', 'admins.role_id', '=', 'roles.id')
                                                     ->select('admins.email as admin_email', 'admins.name as admin_name')
                                                     ->where('admins.status', '=', 1)
                                                     ->where('admins.type', '=', 's')
-                                                    ->where('roles.export_access', '=', 1)
+                                                    ->where('admins.is_fcl_export_email', '=', 1)
                                                     ->orderBy('admins.id', 'ASC')
                                                     ->get();
             $notifications      = DB::table('consignments')
@@ -130,6 +130,7 @@ class FrontController extends Controller
                                                     ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                     ->where('consignments.status', '=', 1)
                                                     ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'FCL')
                                                     ->orderBy('consignments.id', 'DESC')
                                                     ->get();
             // Helper::pr($notifications);
@@ -161,6 +162,104 @@ class FrontController extends Controller
                 
             /* email sent */
             echo "Notification Send !!!";
-        /* cron for export */
+        /* cron for export fcl */
+        /* cron for export lcl */
+            $getExportUsers     = DB::table('admins')
+                                                    ->join('roles', 'admins.role_id', '=', 'roles.id')
+                                                    ->select('admins.email as admin_email', 'admins.name as admin_name')
+                                                    ->where('admins.status', '=', 1)
+                                                    ->where('admins.type', '=', 's')
+                                                    ->where('admins.is_lcl_export_email', '=', 1)
+                                                    ->orderBy('admins.id', 'ASC')
+                                                    ->get();
+            $notifications      = DB::table('consignments')
+                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                    ->join('pols', 'consignments.pol', '=', 'pols.id')
+                                                    ->join('pods', 'consignments.pod', '=', 'pods.id')
+                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                    ->where('consignments.status', '=', 1)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'LCL')
+                                                    ->orderBy('consignments.id', 'DESC')
+                                                    ->get();
+            // Helper::pr($notifications);
+            /* email sent */
+                $generalSetting             = GeneralSetting::find('1');
+                $mail_header                = 'Process Flow Notification On '.date('M d, Y').' Of Export Consignments';
+                $maildata                   = [
+                    'generalSetting'    => $generalSetting,
+                    'mail_header'       => $mail_header,
+                    'notifications'     => $notifications,
+                ];
+                $message                     = view('email-templates.notification-template',$maildata);
+                // echo $message;die;
+                $subject                     = $generalSetting->site_name.' '.$mail_header;
+                if($getExportUsers){
+                    foreach($getExportUsers as $getExportUser){
+                        $mailer->sendMail($getExportUser->admin_email, $subject, $message);
+                        /* email log save */
+                            $postData2 = [
+                                'name'                  => $getExportUser->admin_name,
+                                'email'                 => $getExportUser->admin_email,
+                                'subject'               => $subject,
+                                'message'               => $message
+                            ];
+                            EmailLog::insertGetId($postData2);
+                        /* email log save */
+                    }
+                }
+                
+            /* email sent */
+            echo "Notification Send !!!";
+        /* cron for export lcl */
+        /* cron for export lcl co load */
+            $getExportUsers     = DB::table('admins')
+                                                    ->join('roles', 'admins.role_id', '=', 'roles.id')
+                                                    ->select('admins.email as admin_email', 'admins.name as admin_name')
+                                                    ->where('admins.status', '=', 1)
+                                                    ->where('admins.type', '=', 's')
+                                                    ->where('admins.is_lcl_co_load_export_email', '=', 1)
+                                                    ->orderBy('admins.id', 'ASC')
+                                                    ->get();
+            $notifications      = DB::table('consignments')
+                                                    ->join('customers', 'consignments.customer_id', '=', 'customers.id')
+                                                    ->join('pols', 'consignments.pol', '=', 'pols.id')
+                                                    ->join('pods', 'consignments.pod', '=', 'pods.id')
+                                                    ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
+                                                    ->where('consignments.status', '=', 1)
+                                                    ->where('consignments.shipment_type', '=', 'Export')
+                                                    ->where('consignments.type', '=', 'LCL CO LOAD')
+                                                    ->orderBy('consignments.id', 'DESC')
+                                                    ->get();
+            // Helper::pr($notifications);
+            /* email sent */
+                $generalSetting             = GeneralSetting::find('1');
+                $mail_header                = 'Process Flow Notification On '.date('M d, Y').' Of Export Consignments';
+                $maildata                   = [
+                    'generalSetting'    => $generalSetting,
+                    'mail_header'       => $mail_header,
+                    'notifications'     => $notifications,
+                ];
+                $message                     = view('email-templates.notification-template',$maildata);
+                // echo $message;die;
+                $subject                     = $generalSetting->site_name.' '.$mail_header;
+                if($getExportUsers){
+                    foreach($getExportUsers as $getExportUser){
+                        $mailer->sendMail($getExportUser->admin_email, $subject, $message);
+                        /* email log save */
+                            $postData2 = [
+                                'name'                  => $getExportUser->admin_name,
+                                'email'                 => $getExportUser->admin_email,
+                                'subject'               => $subject,
+                                'message'               => $message
+                            ];
+                            EmailLog::insertGetId($postData2);
+                        /* email log save */
+                    }
+                }
+                
+            /* email sent */
+            echo "Notification Send !!!";
+        /* cron for export lcl co load */
     }
 }
