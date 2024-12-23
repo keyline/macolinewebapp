@@ -39,10 +39,14 @@ $controllerRoute = $module['controller_route'];
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Mobile</th>
+                  <th scope="col">Name<br>Email</th>
+                  <!-- <th scope="col"></th>
+                  <th scope="col">Mobile</th> -->
                   <th scope="col">Role</th>
+                  <th scope="col">Import Email Access</th>
+                  <th scope="col">Export FCL Email Access</th>
+                  <th scope="col">Export LCL Email Access</th>
+                  <th scope="col">Export LCL CO LOAD Email Access</th>
                   <th scope="col">Action</th>
                 </tr>
               </thead>
@@ -50,15 +54,19 @@ $controllerRoute = $module['controller_route'];
                 <?php if(count($rows)>0){ $sl=1; foreach($rows as $row){?>
                   <tr>
                     <th scope="row"><?=$sl++?></th>
-                    <td><?=$row->name?></td>
-                    <td><?=$row->email?></td>
-                    <td><?=$row->mobile?></td>
+                    <td><?=$row->name?><br><?=$row->email?></td>
+                    <!-- <td></td>
+                    <td><?=$row->mobile?></td> -->
                     <td>
                       <?php
                       $getRole = Role::select('id', 'name')->where('id', '=', $row->role_id)->first();
                       echo (($getRole)?$getRole->name:'');
                       ?>
                     </td>
+                    <td><span class="<?=(($row->is_import_email)?'badge bg-success':'badge bg-danger')?>"><?=(($row->is_import_email)?'YES':'NO')?></span></td>
+                    <td><span class="<?=(($row->is_fcl_export_email)?'badge bg-success':'badge bg-danger')?>"><?=(($row->is_fcl_export_email)?'YES':'NO')?></span></td>
+                    <td><span class="<?=(($row->is_lcl_export_email)?'badge bg-success':'badge bg-danger')?>"><?=(($row->is_lcl_export_email)?'YES':'NO')?></span></td>
+                    <td><span class="<?=(($row->is_lcl_co_load_export_email)?'badge bg-success':'badge bg-danger')?>"><?=(($row->is_lcl_co_load_export_email)?'YES':'NO')?></span></td>
                     <td>
                       <a href="<?=url('admin/' . $controllerRoute . '/edit/'.Helper::encoded($row->id))?>" class="btn btn-outline-primary btn-sm" title="Edit <?=$module['title']?>"><i class="fa fa-edit"></i></a>
                       <a href="<?=url('admin/' . $controllerRoute . '/delete/'.Helper::encoded($row->id))?>" class="btn btn-outline-danger btn-sm" title="Delete <?=$module['title']?>" onclick="return confirm('Do You Want To Delete This <?=$module['title']?>');"><i class="fa fa-trash"></i></a>
