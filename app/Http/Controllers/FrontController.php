@@ -42,7 +42,7 @@ class FrontController extends Controller
                                                     ->where('consignments.status', '=', 1)
                                                     ->orderBy('consignments.id', 'DESC')
                                                     ->get();
-            // Helper::pr($notifications);
+            Helper::pr($notifications);
             /* email sent */
                 $generalSetting             = GeneralSetting::find('1');
                 $mail_header                = 'Process Flow Notification On '.date('M d, Y');
