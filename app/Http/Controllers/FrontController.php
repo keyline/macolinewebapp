@@ -45,7 +45,7 @@ class FrontController extends Controller
             // Helper::pr($notifications);
             /* email sent */
                 $generalSetting             = GeneralSetting::find('1');
-                $mail_header                = 'Process Flow Notification On '.date('M d, Y');
+                $mail_header                = 'Process Flow Notification On '.date('M d, Y') . 'For Admin';
                 $maildata                   = [
                     'generalSetting'    => $generalSetting,
                     'mail_header'       => $mail_header,
@@ -88,7 +88,7 @@ class FrontController extends Controller
             // Helper::pr($notifications);
             /* email sent */
                 $generalSetting             = GeneralSetting::find('1');
-                $mail_header                = 'Process Flow Notification On '.date('M d, Y').' Of Import Consignments';
+                $mail_header                = 'Process Flow Notification On '.date('M d, Y') . 'For Import';
                 $maildata                   = [
                     'generalSetting'    => $generalSetting,
                     'mail_header'       => $mail_header,
@@ -136,7 +136,7 @@ class FrontController extends Controller
             // Helper::pr($notifications);
             /* email sent */
                 $generalSetting             = GeneralSetting::find('1');
-                $mail_header                = 'Process Flow Notification On '.date('M d, Y').' Of Export Consignments';
+                $mail_header                = 'Process Flow Notification On '.date('M d, Y') . 'For Export FCL';
                 $maildata                   = [
                     'generalSetting'    => $generalSetting,
                     'mail_header'       => $mail_header,
@@ -185,7 +185,7 @@ class FrontController extends Controller
             // Helper::pr($notifications);
             /* email sent */
                 $generalSetting             = GeneralSetting::find('1');
-                $mail_header                = 'Process Flow Notification On '.date('M d, Y').' Of Export Consignments';
+                $mail_header                = 'Process Flow Notification On '.date('M d, Y') . 'For Export LCL';
                 $maildata                   = [
                     'generalSetting'    => $generalSetting,
                     'mail_header'       => $mail_header,
@@ -234,7 +234,7 @@ class FrontController extends Controller
             // Helper::pr($notifications);
             /* email sent */
                 $generalSetting             = GeneralSetting::find('1');
-                $mail_header                = 'Process Flow Notification On '.date('M d, Y').' Of Export Consignments';
+                $mail_header                = 'Process Flow Notification On '.date('M d, Y') . 'For Export LCL CO LOAD';
                 $maildata                   = [
                     'generalSetting'    => $generalSetting,
                     'mail_header'       => $mail_header,
