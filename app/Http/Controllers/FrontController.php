@@ -40,9 +40,11 @@ class FrontController extends Controller
                                                     ->join('pods', 'consignments.pod', '=', 'pods.id')
                                                     ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                     ->where('consignments.status', '=', 1)
+                                                    ->where('consignments.delivery_status', '=', 1)
+                                                    ->where('consignments.consignment_status', '=', 'Completed')
                                                     ->orderBy('consignments.id', 'DESC')
                                                     ->get();
-            // Helper::pr($notifications);
+            Helper::pr($notifications);
             /* email sent */
                 $generalSetting             = GeneralSetting::find('1');
                 $mail_header                = 'Process Flow Notification On '.date('M d, Y') . 'For Admin';
@@ -82,6 +84,8 @@ class FrontController extends Controller
                                                     ->join('pods', 'consignments.pod', '=', 'pods.id')
                                                     ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                     ->where('consignments.status', '=', 1)
+                                                    ->where('consignments.delivery_status', '=', 1)
+                                                    ->where('consignments.consignment_status', '=', 'Completed')
                                                     ->where('consignments.shipment_type', '=', 'Import')
                                                     ->orderBy('consignments.id', 'DESC')
                                                     ->get();
@@ -129,6 +133,8 @@ class FrontController extends Controller
                                                     ->join('pods', 'consignments.pod', '=', 'pods.id')
                                                     ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                     ->where('consignments.status', '=', 1)
+                                                    ->where('consignments.delivery_status', '=', 1)
+                                                    ->where('consignments.consignment_status', '=', 'Completed')
                                                     ->where('consignments.shipment_type', '=', 'Export')
                                                     ->where('consignments.type', '=', 'FCL')
                                                     ->orderBy('consignments.id', 'DESC')
@@ -178,6 +184,8 @@ class FrontController extends Controller
                                                     ->join('pods', 'consignments.pod', '=', 'pods.id')
                                                     ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                     ->where('consignments.status', '=', 1)
+                                                    ->where('consignments.delivery_status', '=', 1)
+                                                    ->where('consignments.consignment_status', '=', 'Completed')
                                                     ->where('consignments.shipment_type', '=', 'Export')
                                                     ->where('consignments.type', '=', 'LCL')
                                                     ->orderBy('consignments.id', 'DESC')
@@ -227,6 +235,8 @@ class FrontController extends Controller
                                                     ->join('pods', 'consignments.pod', '=', 'pods.id')
                                                     ->select('consignments.*', 'customers.name as customer_name', 'pols.name as pol_name', 'pods.name as pod_name')
                                                     ->where('consignments.status', '=', 1)
+                                                    ->where('consignments.delivery_status', '=', 1)
+                                                    ->where('consignments.consignment_status', '=', 'Completed')
                                                     ->where('consignments.shipment_type', '=', 'Export')
                                                     ->where('consignments.type', '=', 'LCL CO LOAD')
                                                     ->orderBy('consignments.id', 'DESC')
