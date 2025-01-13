@@ -433,7 +433,7 @@ class ConsignmentController extends Controller
             if(!empty($process_flow_id)){
                 for($k=0;$k<count($process_flow_id);$k++){
                     if(isset($input_value[$process_flow_id[$k]])){
-                        if($updated_on[$k] == ''){
+                        // if($updated_on[$k] == ''){
                             $fields             = [
                                 'input_value'   => $input_value[$process_flow_id[$k]],
                                 'hbl_number'    => ((array_key_exists("hbl_number",$postData))?$postData['hbl_number']:''),
@@ -442,7 +442,7 @@ class ConsignmentController extends Controller
                                 'status'        => 1,
                             ];
                             ConsignmentDetail::where('consignment_id', '=', $id)->where('process_flow_id', '=', $process_flow_id[$k])->update($fields);
-                        }
+                        // }
                     }
                 }
                 Consignment::where('id', '=', $consignment_id)->update(['consignment_status' => 'Process']);
